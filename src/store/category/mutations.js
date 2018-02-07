@@ -26,7 +26,7 @@ export default {
     state.isCreate= false
   },
   [REMOVE_CATEGORY](state,payload){
-    state.category = null;
+    state.category = {name:'',status:false};
     state.isCreate = true
   },
   [ADD_CATEGORY_SUCCESS](state,payload){

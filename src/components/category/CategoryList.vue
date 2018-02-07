@@ -47,23 +47,24 @@
     </div>
 </template>
 <script>
+import {mapActions,mapGetters } from 'vuex'
     export default {
         name:'CategoryList',
         computed:{
-            categorys(){
-                return this.$store.getters['category/categorys']
-            }
+            ...mapGetters({
+                categorys:'category/categorys'
+            })
+           
         },
          methods:{
-            toggleStatus(id){
-                this.$store.dispatch('category/changeStatusCategory',id)
-            },
+             ...mapActions('category',{
+                 toggleStatus:'changeStatusCategory',
+                 deleteCategory:'deleteCategory',
+             }),
             selectCategory(category){
                 this.$store.dispatch('category/selectCategory',category)
             },
-           deleteCategory(category_id){
-              this.$store.dispatch('category/deleteCategory',category_id)
-           }
+         
         }
     }
 </script>

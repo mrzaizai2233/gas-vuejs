@@ -5,7 +5,7 @@ import mutations from './mutations'
 const state  = {
   showLoader: true,
   categorys:[],
-  category:'',
+  category:{name:'',status:false},
   isCreate:true
 }
 

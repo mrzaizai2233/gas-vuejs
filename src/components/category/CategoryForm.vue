@@ -4,8 +4,8 @@
             <label for="example_input_full_name">
                 Tên Danh Mục:
             </label>
-            <input type="text" class="form-control m-input" placeholder="Tên danh mục" v-model="categorySelect.name">
-            <input type="hidden" class="form-control m-input" placeholder="Tên danh mục" v-model="categorySelect._id">
+            <input type="text" class="form-control m-input" placeholder="Tên danh mục" v-model="category.name">
+            <input type="hidden" class="form-control m-input" placeholder="Tên danh mục" v-model="category._id">
             <span class="m-form__help">
 
             </span>
@@ -16,7 +16,7 @@
             </label>
             <span class="m-switch m-switch--icon">
                 <label>
-                    <input type="checkbox" checked="checked" v-model="categorySelect.status">
+                    <input type="checkbox" checked="checked" v-model="category.status">
                     <span></span>
                 </label>
             </span>
@@ -25,13 +25,14 @@
             <button type="reset" class="btn btn-primary" @click="submit()">
                 {{isCreate?'Tạo':'Sửa'}}
             </button>
-            <button type="reset" class="btn btn-secondary" @click="reset()">
+            <button type="reset" class="btn btn-secondary" @click="removeCategory()">
                 Làm Mới
             </button>
         </div>
     </div>
 </template>
 <script>
+import {mapActions, mapGetters} from 'vuex'
     export default {
         name:'CategoryForm',
         data(){
@@ -40,24 +41,29 @@
             }
         },
         methods:{
+            ...mapActions('category',[
+                'addCategory',
+                'updateCategory',
+                'removeCategory'
+            ]),
             submit:function(){
               if(this.isCreate){
-                this.$store.dispatch('category/addCategory',this.categorySelect)
+                  this.addCategory(this.category)
+                // this.$store.dispatch('category/addCategory',this.category)
               } else {
-                this.$store.dispatch('category/updateCategory',this.categorySelect)
+                  this.updateCategory(this.category)
+                // this.$store.dispatch('category/updateCategory',this.category)
               }
             },
-            reset(){
-                this.$store.dispatch('category/removeCategory')
-            }
+          
         },
         computed:{
-          categorySelect(){
-              return  this.$store.getters['category/category']?this.$store.getters['category/category']:{_id:'',name:'',status:true}
-          },
-          isCreate(){
-              return this.$store.getters['category/isCreate']
-          }
+            ...mapGetters('category',[
+                'isCreate',
+                'category'
+            ]),
+        
+      
         }
     }
 </script>
