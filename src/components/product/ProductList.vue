@@ -19,23 +19,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="category in categorys" :key="category._id" @dblclick="selectCategory(category)">
+                    <tr v-for="product in products" :key="product._id" @dblclick="selectProduct(product)">
                         <th scope="row">
                             1
                         </th>
                         <td>
-                            {{category.name}}
+                            {{product.name}}
                         </td>
                         <td>
                         <span class="m-switch m-switch--icon">
                                 <label>
-                                    <input type="checkbox" :checked="category.status==1" name="">
-                                    <span @click="toggleStatus(category._id)"></span>
+                                    <input type="checkbox" :checked="product.status==1" name="">
+                                    <span @click="toggleStatus(product._id)"></span>
                                 </label>
                         </span>
                         </td>
                         <td>
-                            <button @click="deleteCategory(category._id)" type="button" class="btn m-btn--pill    btn-outline-danger m-btn m-btn--custom m-btn--outline-2x">
+                            <button @click="deleteProduct(product._id)" type="button" class="btn m-btn--pill    btn-outline-danger m-btn m-btn--custom m-btn--outline-2x">
                                 <i class="la la-trash"></i>
                             </button>
                         </td>
@@ -49,27 +49,26 @@
 <script>
 import {mapActions,mapGetters } from 'vuex'
     export default {
-        name:'CategoryList',
-        created:function(){
-            if(this.categorys<=0){
-                this.getAllCategory()
-            }
-        },
+        name:'ProductList',
         computed:{
             ...mapGetters({
-                categorys:'category/categorys'
+                products:'product/products'
             })
-           
         },
          methods:{
-             ...mapActions('category',{
-                 toggleStatus:'changeStatusCategory',
-                 deleteCategory:'deleteCategory',
-                 selectCategory:'selectCategory',
-                 getAllCategory:'getAllCategory'
+             ...mapActions('product',{
+                 toggleStatus:'changeStatusProduct',
+                 deleteProduct:'deleteProduct',
+                 selectProduct:'selectProduct',
+                 getAllProduct:'getAllProduct'
              }),
-            
+          
          
+        },
+        created(){
+            if(this.products.length<=0){
+                this.getAllProduct()
+            }
         }
     }
 </script>
