@@ -33,11 +33,14 @@ export default   {
     commit(REMOVE_CATEGORY)
   },
   addCategory:function({commit},payload){
-    axios.post(`${API_BASE}/category/create`,
-      payload
-    ).then(respone=>{
-      commit(ADD_CATEGORY_SUCCESS,respone.data)
-      commit(REMOVE_CATEGORY)
+    return new Promise((resolve,reject)=>{
+      axios.post(`${API_BASE}/category/create`,
+        payload
+      ).then(respone=>{
+        commit(ADD_CATEGORY_SUCCESS,respone.data)
+        commit(REMOVE_CATEGORY)
+        resolve()
+      })
     })
   },
   updateCategory:function({commit},payload){
