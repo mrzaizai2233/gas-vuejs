@@ -1,5 +1,5 @@
 <template>
-              <button type="submit" :class="isSend?'btn btn-primary m-loader m-loader--light m-loader--right':'btn btn-primary'" @click="submit()">
+              <button type="submit" :class="{'btn m-btn--pill btn-outline-primary m-btn m-btn--custom m-btn--outline-2x':true,'m-loader m-loader--brand':isSend}" @click="submit()">
                 {{isCreate?'Tạo':'Sửa'}}
             </button>
 </template>
@@ -9,6 +9,7 @@ import {mapActions, mapGetters} from 'vuex'
     export default {
         name:'Button',
         props:['category'],
+        inject: ['$validator'],
         data(){
             return {
                 isSend:false
@@ -25,29 +26,25 @@ import {mapActions, mapGetters} from 'vuex'
                 'updateCategory',
             ]),
             submit:function(){
-                console.log(this.$validator)
-                 this.$validator.validateAll().then((result) => {
-                    if (result) {
-                    // eslint-disable-next-line
-                    alert('Form Submitted!');
-                    } else {
-                        alert('fiald')
+                this.$validator.validateAll().then((result) => {
+                    if(result){
+                        if(this.isCreate){
+                            this.isSend = true;
+                            this.addCategory(this.category).then(()=>{
+                                this.isSend = false;
+                            })
+                        } else {
+                            this.updateCategory(this.category).then(()=>{
+                                this.isSend = false;
+                            })
+                        }
                     }
-                });
-              if(this.isCreate){
-                  this.isSend = true;
-                  this.addCategory(this.category).then(()=>{
-                      this.isSend = false;
-                  })
-                // this.$store.dispatch('category/addCategory',this.category)
-              } else {
-                  this.updateCategory(this.category).then(()=>{
-                      this.isSend = false;
-                  })
-                // this.$store.dispatch('category/updateCategory',this.category)
-              }
+                })
+
             },
           
         },
+        created(){
+        }
     }
 </script>

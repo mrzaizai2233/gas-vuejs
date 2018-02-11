@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Category from '@/pages/Category'
 import Product from '@/pages/Product'
 import User from '@/pages/User'
+import Order from '@/pages/Order'
 Vue.use(Router)
 
 export default new Router({
@@ -11,8 +12,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Order',
+      component: Order
     },
     {
       path: '/category',
@@ -23,10 +24,11 @@ export default new Router({
       path: '/product',
       name: 'Product',
       component: Product
-    },    {
+    },
+    {
       path: '/user',
       name: 'User',
       component: User
-    }
+    },
   ]
 })

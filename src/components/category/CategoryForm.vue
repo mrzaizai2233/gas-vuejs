@@ -1,5 +1,5 @@
 <template>
-<form @submit.prevent="saveProduct">
+<!-- <form @submit.prevent="saveProduct"> -->
   <div class="m-form__section m-form">
         <div :class="{'form-group m-form__group': true, 'has-danger': errors.has('name') }">
             <label for="example_input_full_name">
@@ -23,16 +23,13 @@
             </span>
         </div>
         <div class="form-group m-form__group">
-            <!-- <button type="button" class="btn btn-primary m-loader m-loader--light m-loader--right" @click="submit()">
-                {{isCreate?'Tạo':'Sửa'}}
-            </button> -->
             <Button  :category="category" ></Button>
-            <button type="reset" class="btn btn-secondary" @click="removeCategory()">
+            <button type="reset" class="btn m-btn--pill btn-outline-metal m-btn m-btn--custom m-btn--outline-2x" @click="removeCategory()">
                 Làm Mới
             </button>
         </div>
     </div>
-</form>
+<!-- </form> -->
 </template>
 <script>
 import {mapActions, mapGetters} from 'vuex'
@@ -44,13 +41,17 @@ import Button from './CategoryForm/Button'
 
             }
         },
+        provide () {
+            return {
+                $validator: this.$validator
+            }
+        },
         methods:{
             ...mapActions('category',[
                 'removeCategory'
             ]),
-            saveProduct(){
-                  console.log(this.errors);
-            }
+           
+           
         },
         computed:{
             ...mapGetters('category',[
@@ -61,6 +62,9 @@ import Button from './CategoryForm/Button'
         },
         components:{
             Button
+        },        created(){
+            
+          
         }
     }
 </script>

@@ -20,14 +20,14 @@ export default   {
     })
   },
   changeStatusProduct:function({commit},payload){
-    axios.post(`${API_BASE}/product/change_Status`,{
+    axios.post(`${API_BASE}/product/change_status`,{
       _id:payload
     }).then(respone=>{
       commit(CHANGE_STATUS_PRODUCT,respone.data)
     })
   },
   selectProduct:function({commit},payload){
-    commit(SELECT_PRODUCT,payload)
+    commit(SELECT_PRODUCT, Object.assign({},payload))
   },
   removeProduct:function({commit}){
     commit(REMOVE_PRODUCT)

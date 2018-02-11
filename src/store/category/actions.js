@@ -27,7 +27,7 @@ export default   {
     })
   },
   selectCategory:function({commit},payload){
-    commit(SELECT_CATEGORY,payload)
+    commit(SELECT_CATEGORY,{...payload})
   },
   removeCategory:function({commit}){
     commit(REMOVE_CATEGORY)

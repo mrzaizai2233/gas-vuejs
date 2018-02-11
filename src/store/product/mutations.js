@@ -35,7 +35,11 @@ export default {
   [UPDATE_PRODUCT_SUCCESS](state,payload){
     const product = state.products.find(product =>product._id === payload._id)
     product.name = payload.name
-    product.status = payload.status
+    product.code = payload.code
+    product.input_price = payload.input_price
+    product.price = payload.price
+    product.unit = payload.unit
+    product.category = payload.category
     state.isCreate = true
   },
   [DELETE_PRODUCT_SUCCESS](state,payload){
