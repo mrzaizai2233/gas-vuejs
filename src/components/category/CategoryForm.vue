@@ -1,14 +1,15 @@
 <template>
+<!-- <form @submit.prevent="saveProduct"> -->
   <div class="m-form__section m-form">
-        <div class="form-group m-form__group">
+        <div :class="{'form-group m-form__group': true, 'has-danger': errors.has('name') }">
             <label for="example_input_full_name">
                 Tên Danh Mục:
             </label>
-            <input type="text" class="form-control m-input" placeholder="Tên danh mục" v-model="category.name">
+            <input type="text" :class="{'form-control m-input': true, 'form-control-danger': errors.has('name') }" placeholder="Tên danh mục" name="name" v-model="category.name" v-validate="'required'">
             <input type="hidden" class="form-control m-input" placeholder="Tên danh mục" v-model="category._id">
-            <span class="m-form__help">
-
-            </span>
+            <div v-show="errors.has('name')" class="form-control-feedback">
+				Trường dữ liệu này không thể để trống :( !
+			</div>
         </div>
         <div class="form-group m-form__group">
             <label class="inherit">
@@ -22,17 +23,17 @@
             </span>
         </div>
         <div class="form-group m-form__group">
-            <button type="reset" class="btn btn-primary" @click="submit()">
-                {{isCreate?'Tạo':'Sửa'}}
-            </button>
-            <button type="reset" class="btn btn-secondary" @click="removeCategory()">
+            <Button  :category="category" ></Button>
+            <button type="reset" class="btn m-btn--pill btn-outline-metal m-btn m-btn--custom m-btn--outline-2x" @click="removeCategory()">
                 Làm Mới
             </button>
         </div>
     </div>
+<!-- </form> -->
 </template>
 <script>
 import {mapActions, mapGetters} from 'vuex'
+import Button from './CategoryForm/Button'
     export default {
         name:'CategoryForm',
         data(){
@@ -40,30 +41,30 @@ import {mapActions, mapGetters} from 'vuex'
 
             }
         },
+        provide () {
+            return {
+                $validator: this.$validator
+            }
+        },
         methods:{
             ...mapActions('category',[
-                'addCategory',
-                'updateCategory',
                 'removeCategory'
             ]),
-            submit:function(){
-              if(this.isCreate){
-                  this.addCategory(this.category)
-                // this.$store.dispatch('category/addCategory',this.category)
-              } else {
-                  this.updateCategory(this.category)
-                // this.$store.dispatch('category/updateCategory',this.category)
-              }
-            },
-          
+           
+           
         },
         computed:{
             ...mapGetters('category',[
-                'isCreate',
                 'category'
             ]),
         
       
+        },
+        components:{
+            Button
+        },        created(){
+            
+          
         }
     }
 </script>

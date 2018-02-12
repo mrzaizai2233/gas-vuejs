@@ -4,8 +4,15 @@ import mutations from './mutations'
 
 const state  = {
   showLoader: true,
-  categorys:[],
-  category:{},
+  orders:[],
+  order:{
+    user:'',
+    items:[],
+    create_at:'',
+    grand_total:0,
+    subtotal:0,
+    status:0,
+  },
   isCreate:true
 }
 

@@ -46,9 +46,7 @@ import categoryForm from '@/components/category/CategoryForm'
 
     export default {
         name:'Category',
-        created:function(){
-            this.$store.dispatch('category/getAllCategory')
-        },
+        
         computed:{
 
         },
