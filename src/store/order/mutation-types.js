@@ -12,5 +12,8 @@ export const UPDATE_ORDER_SUCCESS = 'UPDATE_ORDER_SUCCESS';
 export const DELETE_ORDER_SUCCESS = 'DELETE_ORDER_SUCCESS';
 
 export const ADD_ORDER_ITEM = 'ADD_ORDER_ITEM';
+<<<<<<< HEAD
 
 export const CHANGE_ITEM = 'CHANGE_ITEM';
+=======
+>>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b

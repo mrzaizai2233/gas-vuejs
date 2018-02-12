@@ -10,7 +10,13 @@
                         <th>
                             Tên Sản Phẩm
                         </th>
+<<<<<<< HEAD
                       
+=======
+                        <th>
+                            Mã Sản Phẩm
+                        </th>
+>>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
                           
                     </tr>
                 </thead>
@@ -22,6 +28,14 @@
                         <td>
                             {{product.name}}
                         </td>
+<<<<<<< HEAD
+=======
+                        <td>
+                            {{product.code}}
+                        </td>
+                      
+
+>>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
                     </tr>
                 </tbody>
             </table>
@@ -48,6 +62,7 @@ import {mapGetters,mapActions} from 'vuex'
                  'addOrderItem'
                  ]),
              addItem(product){
+<<<<<<< HEAD
                  let item={
                      product:product._id,
                      qty:1,
@@ -58,6 +73,10 @@ import {mapGetters,mapActions} from 'vuex'
                  }
                  console.log(item)
                     this.order.items.push(item)
+=======
+                 console.log(product)
+                    this.order.items.push(product)
+>>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
              }
         },
          created(){

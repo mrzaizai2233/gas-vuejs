@@ -15,6 +15,7 @@
       <tbody class="m-datatable__body" style="">
          <tr v-if="hasItems" v-for="(item,index) in items" :key="index"  class="m-datatable__row m-datatable__row--even" style="height: 64px;">
             <td  class="m-datatable__cell--center m-datatable__cell">
+<<<<<<< HEAD
                     {{item.product}}
                     <input type="hidden" v-model="item.product"  name="product">
             </td>
@@ -32,6 +33,27 @@
             </td>
             <td  class="m-datatable__cell m-datatable__cell--center">
                 <input type="text" class="form-control m-input m-input--square" placeholder="Tổng Tiền" v-model="item.total"  name="total" >
+=======
+                    {{item.name}}
+                                        <input type="hidden" :value="item._id" @input="$set(items[index],'product',$event.target.value)" name="product">
+
+            </td>
+            <td  class="m-datatable__cell m-datatable__cell--center">
+                    <input type="text" class="form-control m-input m-input--square" placeholder="Số Lương"  name="qty" :value="item.qty" @input="$set(items[index],'qty',$event.target.value)">
+
+            </td>
+            <td  class="m-datatable__cell m-datatable__cell--center">
+                    <input type="text" class="form-control m-input m-input--square" placeholder="Đơn giá" v-model="item.price">
+
+            </td>
+            <td  class="m-datatable__cell m-datatable__cell--center">
+                <input type="text" class="form-control m-input m-input--square" placeholder="Giảm %" :value="item.discout_percent" @input="$set(items[index],'discout_percent',$event.target.value)" name="product">
+
+            </td>
+                       <td  class="m-datatable__cell m-datatable__cell--center">
+                <input type="text" class="form-control m-input m-input--square" placeholder="Giảm Tiền" :value="item.discout_fixed" @input="$set(items[index],'discout_fixed',$event.target.value)" name="product" >
+
+>>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
             </td>
          </tr>
       </tbody>
@@ -40,7 +62,11 @@
       <div class="m-datatable__pager-info">
          <div class="btn-group bootstrap-select m-datatable__pager-size" style="width: 70px;">
             <button @click="submit()" type="button" class="btn btn-default"  role="button" title="Select page size"><span class="filter-option pull-left">Lưu</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button>
+<<<<<<< HEAD
             <p>{{   total}}</p>
+=======
+
+>>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
          </div>
       </div>
    </div>
@@ -51,6 +77,7 @@ import {mapGetters,mapActions} from 'vuex'
     export default {
         name:'OrderFrom',
         methods:{
+<<<<<<< HEAD
             ...mapActions('order',[
                 'changeItem'
             ]),
@@ -67,13 +94,21 @@ import {mapGetters,mapActions} from 'vuex'
                 }
                 item.total = item.price-item.discount_fixed
                 this.changeItem({index,item})
+=======
+submit:function(){
+                console.log(this.order)
+>>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
             }
         },
         computed:{
             ...mapGetters('order',[
                 'items',
+<<<<<<< HEAD
                 'order',
                 'total'
+=======
+                'order'
+>>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
             ]),
             hasItems:function(){
                 if(this.items.length>0)
@@ -81,12 +116,17 @@ import {mapGetters,mapActions} from 'vuex'
                 else 
                     return 0
             },
+<<<<<<< HEAD
         },
         watch:{
             items:function(value){
                 console.log(value)
             }
         }
+=======
+            
+        },
+>>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
         
     }
 </script>
