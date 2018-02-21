@@ -42,11 +42,21 @@
 <script>
 import ProductList from '@/components/product/ProductList'
 import ProductForm from '@/components/product/ProductForm'
+import { mapActions } from 'vuex';
+
     export default {
         components:{
             ProductList,
             ProductForm
-        }
+        },
+         methods:{
+            ...mapActions([ 
+                'setPageTitle'
+            ])
+        },
+        created(){
+            this.setPageTitle('Sản Phẩm')
+        },
     }
 </script>
 <style>

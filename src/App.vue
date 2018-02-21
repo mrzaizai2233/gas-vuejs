@@ -449,7 +449,7 @@
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
                             <h3 class="m-subheader__title ">
-                                Layout Builder
+                                {{pageTitle}}
                             </h3>
                         </div>
                
@@ -486,8 +486,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
-  name: 'App'
+  name: 'App',
+    computed:{
+        ...mapGetters([
+            'pageTitle'
+        ])
+    }
 }
 </script>
 

@@ -1,0 +1,15 @@
+export const ALL_USERS = 'ALL_USERS';
+export const ALL_USERS_SUCCESS = 'ALL_USERS_SUCCESS';
+
+export const CHANGE_STATUS_USER = 'CHANGE_STATUS_USER';
+export const SELECT_USER = 'SELECT_USER';
+
+export const REMOVE_USER = 'REMOVE_USER';
+export const ADD_USER = 'ADD_USER';
+
+export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
+
+export const UPDATE_USER = 'UPDATE_USER';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+
+export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';

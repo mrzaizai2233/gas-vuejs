@@ -43,6 +43,7 @@
 <script>
 import categoryList from '@/components/category/CategoryList'
 import categoryForm from '@/components/category/CategoryForm'
+import { mapActions } from 'vuex';
 
     export default {
         name:'Category',
@@ -51,7 +52,12 @@ import categoryForm from '@/components/category/CategoryForm'
 
         },
         methods:{
-
+            ...mapActions([ 
+                'setPageTitle'
+            ])
+        },
+        created(){
+            this.setPageTitle('Danh Mục')
         },
         components:{
             categoryList,

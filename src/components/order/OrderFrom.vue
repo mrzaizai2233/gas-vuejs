@@ -1,132 +1,189 @@
 <template>
-  <div class="m_datatable m-datatable m-datatable--default m-datatable--loaded" id="local_data" style="">
-   <table class="m-datatable__table" id="m-datatable--1277337141009" style="display: block; height: auto; overflow-x: auto;">
-      <thead class="m-datatable__head">
-         <tr class="m-datatable__row" style="height: 53px;">
-            <th class="m-datatable__cell--center m-datatable__cell m-datatable__cell--sort"><span style="width: 50px;">Tên Sản Phẩm</span></th>
-            <th class="m-datatable__cell m-datatable__cell--sort"><span style="width: 60px;">Số Lượng</span></th>
-            <th class="m-datatable__cell m-datatable__cell--sort"><span style="width: 60px;">Đơn Giá</span></th>
-            <th class="m-datatable__cell m-datatable__cell--sort"><span style="width: 60px;">Giảm Phần Trăm</span></th>
-            <th class="m-datatable__cell m-datatable__cell--sort"><span style="width: 60px;"> Giảm Tiền</span></th>
-            <th class="m-datatable__cell m-datatable__cell--sort"><span style="width: 60px;">Tổng</span></th>
-            <th class="m-datatable__cell m-datatable__cell--sort"><span style="width: 60px;">Xóa</span></th>
-         </tr>
-      </thead>
-      <tbody class="m-datatable__body" style="">
-         <tr v-if="hasItems" v-for="(item,index) in items" :key="index"  class="m-datatable__row m-datatable__row--even" style="height: 64px;">
-            <td  class="m-datatable__cell--center m-datatable__cell">
-<<<<<<< HEAD
-                    {{item.product}}
-                    <input type="hidden" v-model="item.product"  name="product">
-            </td>
-            <td  class="m-datatable__cell m-datatable__cell--center">
-                    <input type="text" class="form-control m-input m-input--square" placeholder="Số Lương" v-model="item.qty" name="qty">
-            </td>
-            <td  class="m-datatable__cell m-datatable__cell--center">
-                    <input type="text" class="form-control m-input m-input--square" placeholder="Đơn giá" v-model="item.price" name="price">
-            </td>
-            <td  class="m-datatable__cell m-datatable__cell--center">
-                <input type="text" class="form-control m-input m-input--square" placeholder="Giảm %" v-model="item.discount_percent"  @input="$set(items[index],'discount_percent',$event.target.value)"  name="discount_percent" @keypress="discount(index,'percent')" >
-            </td>
-            <td  class="m-datatable__cell m-datatable__cell--center">
-                <input type="text" class="form-control m-input m-input--square" placeholder="Giảm Tiền" v-model="item.discount_fixed"  name="discount_fixed" @keypress="discount(index,'fixed')">
-            </td>
-            <td  class="m-datatable__cell m-datatable__cell--center">
-                <input type="text" class="form-control m-input m-input--square" placeholder="Tổng Tiền" v-model="item.total"  name="total" >
-=======
-                    {{item.name}}
-                                        <input type="hidden" :value="item._id" @input="$set(items[index],'product',$event.target.value)" name="product">
-
-            </td>
-            <td  class="m-datatable__cell m-datatable__cell--center">
-                    <input type="text" class="form-control m-input m-input--square" placeholder="Số Lương"  name="qty" :value="item.qty" @input="$set(items[index],'qty',$event.target.value)">
-
-            </td>
-            <td  class="m-datatable__cell m-datatable__cell--center">
-                    <input type="text" class="form-control m-input m-input--square" placeholder="Đơn giá" v-model="item.price">
-
-            </td>
-            <td  class="m-datatable__cell m-datatable__cell--center">
-                <input type="text" class="form-control m-input m-input--square" placeholder="Giảm %" :value="item.discout_percent" @input="$set(items[index],'discout_percent',$event.target.value)" name="product">
-
-            </td>
-                       <td  class="m-datatable__cell m-datatable__cell--center">
-                <input type="text" class="form-control m-input m-input--square" placeholder="Giảm Tiền" :value="item.discout_fixed" @input="$set(items[index],'discout_fixed',$event.target.value)" name="product" >
-
->>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
-            </td>
-         </tr>
-      </tbody>
-   </table>
-   <div class="m-datatable__pager m-datatable--paging-loaded clearfix">
-      <div class="m-datatable__pager-info">
-         <div class="btn-group bootstrap-select m-datatable__pager-size" style="width: 70px;">
-            <button @click="submit()" type="button" class="btn btn-default"  role="button" title="Select page size"><span class="filter-option pull-left">Lưu</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button>
-<<<<<<< HEAD
-            <p>{{   total}}</p>
-=======
-
->>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
-         </div>
-      </div>
-   </div>
+<div>
+    <table class="table m-table m-table--head-separator-primary">
+        <thead>
+            <tr>
+                <th style="width:20%">Tên Khách Hàng</th>
+                <th style="width:20%">Mã Khách Hàng</th>
+                <th style="width:20%">Số Điện Thoại</th>
+                <th style="width:20%">Địa Chỉ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="hidden" v-model="order.user">
+            <Typeahead 
+                   :filter-key="'name'" 
+                   :placeholder="'Nhập tên'"
+                   :source="users"
+                   :showKey="'name'"
+                   :start-at="1"
+                   @select="getUser"
+                   > 
+                   </Typeahead>                </td>
+                <td>
+                    {{userSelected.code}}
+                </td>
+                <td>
+                    {{userSelected.phone}}
+                </td>
+                <td>
+                    {{userSelected.adress}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table m-table m-table--head-separator-primary">
+        <thead>
+            <tr>
+                <th style="width: 130px;">
+                    Tên Sản Phẩm
+                </th>
+                <th style="width:90px">
+                    Số Lượng
+                </th>
+                <th>
+                    Đơn Giá
+                </th>
+                <th style="width:90px">
+                    Giảm %
+                </th>
+                <th>
+                    Giảm Tiền
+                </th>
+                <th>
+                    Tổng
+                </th>
+                <th>
+                    Xóa
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-if="hasItems" v-for="(item,index) in items" :key="index" class="m-datatable__row m-datatable__row--even" style="height: 64px;">
+                <td class="" style="width: 130px;">
+                    {{productName(item.product)}}
+                    <input type="hidden" v-model="item.product" name="product">
+                </td>
+                <td class="" style="width:90px">
+                    <input type="number" class="form-control m-input m-input--square input-small" placeholder="Số Lương" v-model="item.qty" name="qty" @keyup="discount($event,index,'qty')">
+                </td>
+                <td class="">
+                    <input type="text" class="form-control m-input m-input--square" placeholder="Đơn giá" v-model="item.price" name="price" :readonly="true">
+                </td>
+                <td class="" style="width:90px">
+                    <input type="text" class="form-control m-input m-input--square" placeholder="Giảm %" v-model="item.discount_percent" name="discount_percent" @keyup="discount($event,index,'percent')">
+                </td>
+                <td class="">
+                    <input type="text" class="form-control m-input m-input--square" placeholder="Giảm Tiền" v-model="item.discount_fixed" name="discount_fixed" @keyup="discount($event,index,'fixed')">
+                </td>
+                <td class="">
+                    {{item.total}}
+                </td>
+                <td class="">
+                    <button @click="removeItem(index)" type="button" class="btn m-btn--pill    btn-outline-danger m-btn m-btn--custom m-btn--outline-2x"><i class="la la-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Tổng: </td>
+                <td><span class="m-widget13__text m-widget13__number-bolder m--font-brand">{{total}}</span></td>
+            </tr>
+            
+        </tfoot>
+    </table>
+    <button @click="submit">submit</button>
 </div>
 </template>
+
 <script>
-import {mapGetters,mapActions} from 'vuex'
+    import Typeahead from '../Typeahead'
+    import {
+        mapGetters,
+        mapActions
+    } from "vuex";
     export default {
-        name:'OrderFrom',
-        methods:{
-<<<<<<< HEAD
-            ...mapActions('order',[
-                'changeItem'
-            ]),
-            submit:function(){
-                console.log(this.order)
-            },
-            discount:function(index,element){
-                let item = this.items[index]
-                console.log(item)
-                if(element==='fixed'){
-                    item.discount_percent = (item.discount_fixed*100)/item.price
-                } else {
-                    item.discount_fixed = (item.price*item.discount_percent)/100
-                }
-                item.total = item.price-item.discount_fixed
-                this.changeItem({index,item})
-=======
-submit:function(){
-                console.log(this.order)
->>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
+        name: "OrderFrom",
+        data(){
+            return {
+                userSelected:{},
+                // users:[
+                //     {name:"ba thin",_id:1,code:"kh1",phone:"123"},
+                //     {name:"ba thin",_id:2,code:"kh1",phone:"123"},
+                //     {name:"ba thin",_id:3,code:"kh1",phone:"123"},
+                //     {name:"ba thin",_id:4,code:"kh1",phone:"123"}
+                // ]
             }
         },
-        computed:{
-            ...mapGetters('order',[
-                'items',
-<<<<<<< HEAD
-                'order',
-                'total'
-=======
-                'order'
->>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
-            ]),
-            hasItems:function(){
-                if(this.items.length>0)
-                    return 1
-                else 
-                    return 0
+        methods: {
+            ...mapActions("order", ["changeItem", "removeItem"]),
+            ...mapActions("user", ["getAllUser"]),
+            submit: function() {
+                console.log(this.order);
             },
-<<<<<<< HEAD
+            discount: function($event, index, element) {
+                let item = this.items[index];
+                if (element === "qty") {
+                    item.discount_percent = 0;
+                    item.discount_fixed = 0;
+                }
+                item.total = item.qty ? parseInt(item.qty) * parseFloat(item.price) : 0;
+                if (element === "fixed") {
+                    if (item.discount_fixed <= item.price) {
+                        item.discount_percent = parseFloat(
+                            item.discount_fixed * 100 / item.total
+                        );
+                        item.discount_fixed = item.discount_fixed ? item.discount_fixed : 0;
+                    }
+                }
+                if (element === "percent") {
+                    if (item.discount_percent <= 100) {
+                        item.discount_fixed = parseFloat(
+                            item.total * item.discount_percent / 100
+                        );
+                        item.discount_percent = item.discount_percent ?
+                            item.discount_percent :
+                            0;
+                    }
+                }
+                if (item.discount_percent <= 100 && item.discount_fixed <= item.price) {
+                    item.total = item.total - item.discount_fixed;
+                }
+            },
+            productName:function(product_id){
+                return this.products.find(product=>product._id===product_id).name
+            },
+            getUser:function(item){
+                this.userSelected = item
+                this.order.user = item._id
+            },
+           
         },
-        watch:{
-            items:function(value){
-                console.log(value)
+        computed: {
+            ...mapGetters("order", ["items", "order", "total"]),
+            ...mapGetters("product", ["products"]),
+            ...mapGetters("user", ["users"]),
+
+            hasItems: function() {
+                if (this.items.length > 0) return 1;
+                else return 0;
+            }
+        },
+        watch: {},
+        components:{
+            Typeahead
+        },
+        created(){
+            if(this.users.length<=0){
+                this.getAllUser()
             }
         }
-=======
-            
-        },
->>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
-        
-    }
+    };
 </script>

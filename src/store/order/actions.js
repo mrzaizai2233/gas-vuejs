@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 import {
-<<<<<<< HEAD
     ALL_ORDERS,
     ALL_ORDERS_SUCCESS,
     CHANGE_STATUS_ORDER,
@@ -11,7 +10,8 @@ import {
     UPDATE_ORDER_SUCCESS,
     DELETE_ORDER_SUCCESS,
     ADD_ORDER_ITEM,
-    CHANGE_ITEM
+    CHANGE_ITEM,
+    REMOVE_ITEM
 } from './mutation-types'
 import { API_BASE } from '../../config'
 
@@ -72,69 +72,9 @@ export default {
     },
     changeItem: function({ commit }, payload) {
         commit(CHANGE_ITEM, payload)
+    },
+    removeItem:function({commit},payload){
+        console.log(payload)
+        commit(REMOVE_ITEM,payload)
     }
 }
-=======
-  ALL_ORDERS,
-  ALL_ORDERS_SUCCESS
-  ,CHANGE_STATUS_ORDER
-  ,SELECT_ORDER
-  ,REMOVE_ORDER,
-  ADD_ORDER_SUCCESS,
-  UPDATE_ORDER_SUCCESS,
-  DELETE_ORDER_SUCCESS,
-  ADD_ORDER_ITEM
-} from './mutation-types'
-import {API_BASE} from '../../config'
-
-export default   {
-  getAllOrder:function({commit}){
-    commit(ALL_ORDERS)
-    axios.get(`${API_BASE}/orders`).then(response=>{
-      commit(ALL_ORDERS_SUCCESS,response.data)
-    })
-  },
-  changeStatusOrder:function({commit},payload){
-    axios.post(`${API_BASE}/order/change_Status`,{
-      _id:payload
-    }).then(respone=>{
-      commit(CHANGE_STATUS_ORDER,respone.data)
-    })
-  },
-  selectOrder:function({commit},payload){
-    commit(SELECT_ORDER,{...payload})
-  },
-  removeOrder:function({commit}){
-    commit(REMOVE_ORDER)
-  },
-  addOrder:function({commit},payload){
-    return new Promise((resolve,reject)=>{
-      axios.post(`${API_BASE}/order/create`,
-        payload
-      ).then(respone=>{
-        commit(ADD_ORDER_SUCCESS,respone.data)
-        commit(REMOVE_ORDER)
-        resolve()
-      })
-    })
-  },
-  updateOrder:function({commit},payload){
-
-    axios.post(`${API_BASE}/order/update`,payload).then(respone=>{
-      commit(UPDATE_ORDER_SUCCESS,respone.data)
-      commit(REMOVE_ORDER)
-
-    })
-  },
-  deleteOrder:function({commit},payload){
-    axios.get(`${API_BASE}/order/delete/${payload}`).then(respone=>{
-      commit(DELETE_ORDER_SUCCESS,respone.data)
-    })
-  },
-  addOrderItem:function({commit},payload){
-    commit(ADD_ORDER_ITEM,payload)
-  }
-}
-
-
->>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b

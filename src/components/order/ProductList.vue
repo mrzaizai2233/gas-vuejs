@@ -1,46 +1,20 @@
 <template>
-      <div class="m-section">
-        <div class="m-section__content">
-            <table class="table table-bordered table-hover">
+            <table class="table m-table m-table--head-separator-primary">
                 <thead>
                     <tr>
-                        <!-- <th>
-                            #
-                        </th> -->
                         <th>
-                            Tên Sản Phẩm
+                            Sản Phẩm
                         </th>
-<<<<<<< HEAD
-                      
-=======
-                        <th>
-                            Mã Sản Phẩm
-                        </th>
->>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
-                          
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="product in products" :key="product._id" @dblclick="addOrderItem(product)">
-                        <!-- <th scope="row">
-                            1
-                        </th> -->
                         <td>
                             {{product.name}}
                         </td>
-<<<<<<< HEAD
-=======
-                        <td>
-                            {{product.code}}
-                        </td>
-                      
-
->>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </div>
 </template>
 <script>
 import {mapGetters,mapActions} from 'vuex'
@@ -62,7 +36,6 @@ import {mapGetters,mapActions} from 'vuex'
                  'addOrderItem'
                  ]),
              addItem(product){
-<<<<<<< HEAD
                  let item={
                      product:product._id,
                      qty:1,
@@ -73,10 +46,6 @@ import {mapGetters,mapActions} from 'vuex'
                  }
                  console.log(item)
                     this.order.items.push(item)
-=======
-                 console.log(product)
-                    this.order.items.push(product)
->>>>>>> 058901d075e6022cfb6c6c35779dd8db4968d06b
              }
         },
          created(){
