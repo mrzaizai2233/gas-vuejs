@@ -38,7 +38,7 @@
         </tbody>
     </table>
             </v-flex>
-        <v-flex  md6 sm12 elevation-1>
+        <v-flex  md6 sm12 xs12 elevation-1>
 
          <div v-if="hasItems" v-for="(item,index) in items" :key="index" class="cart-item theme--light v-table">
                 <div class="cart-item_part head-item">
@@ -65,7 +65,7 @@
                 </div>
     
     </v-flex>
-    <v-flex  md6 sm12 col-xs-12 elevation-1>
+    <v-flex  md6 sm12 col-xs-12 elevation-1 wrap-col-footer>
        <div class="col-footer ">
                     <div class="col-footer_item col-footer_remove">
                         <button class="flat-btn btn-danger">Hủy</button>
@@ -299,40 +299,44 @@ export default {
 
 @media only screen and (max-width: 959px)
 {
-.col-footer {
+.wrap-col-footer {
    position: fixed;
    bottom: 0;
-   display: flex
+   display: flex;
+   width:100%;
+}
+.col-footer {
+    flex:1;
 }
 }
  .flat-btn {
-            width: 100%;
-            border-radius: 0;
-            border: none;
-            padding: 10px;
-        }
-        
-        .col-footer {
-            display: flex
-        }
-        
-        .col-footer .col-footer_total {
-            flex: 2;
-            background: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .col-footer .col-footer_total .price {
-            font-weight: bold;
-        }
-        
-        .col-footer .col-footer_add {
-            flex: 1;
-        }
-        
-        .col-footer .col-footer_remove {
-            flex: 1;
-        }
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    padding: 10px;
+}
+
+.col-footer {
+    display: flex
+}
+
+.col-footer .col-footer_total {
+    flex: 2;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col-footer .col-footer_total .price {
+    font-weight: bold;
+}
+
+.col-footer .col-footer_add {
+    flex: 1;
+}
+
+.col-footer .col-footer_remove {
+    flex: 1;
+}
 </style>
