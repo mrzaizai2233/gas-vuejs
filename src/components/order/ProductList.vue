@@ -1,42 +1,37 @@
 <template>
-    <table class="table table-hover">
-    
-        <thead>
-    
-            <tr>
-    
-                <th>
-    
-                    Sản Phẩm
-    
-                </th>
-    
-            </tr>
-    
-        </thead>
-    
-        <tbody>
-    
-            <tr v-for="product in products" :key="product._id" @click="addOrderItem(product)">
-    
-                <td class="hover-pointer">
-    
-                    <span> {{product.name}}  </span>
-    
+    <v-flex md6 sm12>
+        <v-data-table :headers="headers" :items="products" hide-actions class="elevation-1">
+            <template slot="items" slot-scope="props">
+                <td>{{ props.item.name }}</td>
+                <td>
+                <button :class="{'btn m-btn--pill btn-outline-primary m-btn m-btn--custom m-btn--outline-2x':true}" @click="addOrderItem(props.item)">
+                        Sửa
+                </button>
                 </td>
-    
-            </tr>
-    
-        </tbody>
-    
-    </table>
+            </template>
+        </v-data-table>
+        </v-flex>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "ProductList",
+  data() {
+    return {
+      headers: [
+        {
+          text: "Tên",
+          value: "name"
+        },
 
+        {
+          text: "Hành động",
+          value: "status"
+        }
+      ]
+    };
+  },
   computed: {
     ...mapGetters("product", ["products"]),
 

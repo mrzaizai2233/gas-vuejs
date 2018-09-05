@@ -174,7 +174,7 @@ export default {
     border-top: 1px solid #f4f5f8;
 }
 .square-btn {
-  padding: 10px;
+      padding: 5px 10px 5px 10px;
 }
 .hover-pointer {
   cursor: pointer;
