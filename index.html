@@ -5,17 +5,7 @@
     <title>gas</title>
     <script src="/static/js/jquery.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-    <script>
-        WebFont.load({
-            google: {
-                "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"]
-            },
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-        });
-    </script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
     <!--end::Web font -->
     <!--begin::Base Styles -->
     <link rel="stylesheet" href="/static/css/style.bundle.css">
@@ -23,14 +13,24 @@
 
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon.ico" />
+    <style>
+      .v-text-field__slot {
+        height: auto;
+      }
+      .table td, .table th {
+       vertical-align: center !important;
+      }
+      </style>
+      
   </head>
-  <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+  <!-- <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"> -->
+    <body>
     <div id="app"></div>
 
     <!-- built files will be auto injected -->
-    <script src="/static/js/vendors.bundle.js"></script>
-    <script src="/static/js/scripts.bundle.js"></script>
-    <script src="/static/js/bootstrap-select.js"></script>
+    <!--<script src="/static/js/vendors.bundle.js"></script>-->
+    <!--<script src="/static/js/scripts.bundle.js"></script>-->
+    <!--<script src="/static/js/bootstrap-select.js"></script>-->
     <!-- <script src="/static/js/dashboard.js"></script> -->
 
 

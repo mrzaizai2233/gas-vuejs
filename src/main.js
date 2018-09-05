@@ -8,6 +8,11 @@ import App from './App'
 import router from './router'
 import VeeValidate from 'vee-validate'
 import store  from './store'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+Vue.use(Vuetify)
+
 Vue.use(VeeValidate)
 
 Vue.config.productionTip = false
@@ -19,7 +24,5 @@ new Vue({
   store,
   components: { App },
   template: '<App/>',
-  created(){
-   
-  }
+ 
 })

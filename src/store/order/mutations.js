@@ -1,5 +1,6 @@
 import {
     ALL_ORDERS,
+    ADD_ORDER,
     ALL_ORDERS_SUCCESS,
     CHANGE_STATUS_ORDER,
     SELECT_ORDER,
@@ -32,6 +33,9 @@ export default {
         state.order = {};
         state.isCreate = true
     },
+    [ADD_ORDER](state, payload) {
+        state.orders.push(payload)
+    },
     [ADD_ORDER_SUCCESS](state, payload) {
         state.orders.push(payload)
     },
@@ -50,13 +54,18 @@ export default {
     },
     [ADD_ORDER_ITEM](state, payload) {
         state.order.items.push(payload)
+        let total = state.order.items.reduce((pv,cv)=>{
+            return pv + cv.total
+        },0)
+        state.order.grand_total = total;
+        state.order.subtotal = total;
+       
     },
     [CHANGE_ITEM](state, payload) {
         let item = state.order.items[payload.index]
         item = payload.item
     },
     [REMOVE_ITEM](state,payload){
-        console.log(state.order.items)
         state.order.items.splice(payload,1)
     }
 }

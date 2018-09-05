@@ -14,10 +14,10 @@
             </div>
             <div class="m-portlet__body">
                 <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-12 col-sm-12 col-md-2">
                     <ProductList></ProductList>
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-12 col-sm-12 col-md-10">
                     <OrderFrom></OrderFrom>
                 </div>
                 </div>
@@ -29,7 +29,7 @@
 												
 											</div>
 											<div class="col-lg-6 m--align-right">
-												<button type="submit" class="btn btn-brand">
+												<button type="submit" class="btn btn-brand" @click="submit">
 													Thêm
 												</button>
 												<span class="m--margin-left-10">
@@ -46,17 +46,29 @@
 <script>
 import ProductList from '@/components/order/ProductList'
 import OrderFrom from '@/components/order/OrderFrom'
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters} from 'vuex';
 
     export default {
         components:{
             ProductList,
             OrderFrom
         },
+         computed:{
+            ...mapGetters('order',[
+                'order',
+            ]),
+        },
           methods:{
             ...mapActions([ 
                 'setPageTitle'
-            ])
+            ]),
+             ...mapActions('order',[ 
+                'addOrder'
+            ]),
+            submit(){
+                console.log(this.order)
+                // this.addOrder(this.order)
+            }
         },
         created(){
             this.setPageTitle('Đơn hàng')

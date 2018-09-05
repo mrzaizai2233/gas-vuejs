@@ -3,11 +3,11 @@
       <input 
             v-model="query"
             type="text" 
-            class="SearchInput" 
+            class="SearchInput form-control" 
             :placeholder="placeholder"
             @keyup="isSelect=false"
         >
-        <transition-group name="fade" tag="ul" class="Results" v-show="!isSelect">
+        <transition-group name="fade" tag="ul" class="Results" v-show="!isSelect" style="margin-bottom:0">
             <li v-for="item in filtered" :key="item._id" @click="selectItem(item)">
                 <span>
                     <strong>{{ item[showKey]  }}</strong><br>

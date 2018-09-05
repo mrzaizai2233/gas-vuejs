@@ -8,7 +8,6 @@ import {mapActions, mapGetters} from 'vuex'
 
     export default {
         name:'Button',
-        props:['category'],
         inject: ['$validator'],
         data(){
             return {
@@ -17,7 +16,8 @@ import {mapActions, mapGetters} from 'vuex'
         },
         computed:{
             ...mapGetters('category',[
-                'isCreate'
+                'isCreate',
+                'category'
             ]),
         },
         methods:{

@@ -1,11 +1,11 @@
 <template>
 <div>
-    <table class="table m-table m-table--head-separator-primary">
+    <table class="table table-hover table-striped">
         <thead>
             <tr>
-                <th style="width:20%">Tên Khách Hàng</th>
-                <th style="width:20%">Mã Khách Hàng</th>
-                <th style="width:20%">Số Điện Thoại</th>
+                <th style="width:20%">Tên KH</th>
+                <th style="width:20%">Mã KH</th>
+                <th style="width:20%">SĐT</th>
                 <th style="width:20%">Địa Chỉ</th>
             </tr>
         </thead>
@@ -34,55 +34,51 @@
             </tr>
         </tbody>
     </table>
-    <table class="table m-table m-table--head-separator-primary">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th style="width: 130px;">
-                    Tên Sản Phẩm
+                   Sản Phẩm
                 </th>
-                <th style="width:90px">
-                    Số Lượng
-                </th>
-                <th>
-                    Đơn Giá
-                </th>
-                <th style="width:90px">
-                    Giảm %
+                <th >
+                    SL
                 </th>
                 <th>
-                    Giảm Tiền
+                    Giá
                 </th>
+                <!-- <th>
+                    Giảm Giá
+                </th> -->
                 <th>
                     Tổng
                 </th>
-                <th>
+                <th class="text-center">
                     Xóa
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr v-if="hasItems" v-for="(item,index) in items" :key="index" class="m-datatable__row m-datatable__row--even" style="height: 64px;">
+            <tr v-if="hasItems" v-for="(item,index) in items" :key="index" class="" style="height: 64px;">
                 <td class="" style="width: 130px;">
                     {{productName(item.product)}}
                     <input type="hidden" v-model="item.product" name="product">
                 </td>
-                <td class="" style="width:90px">
-                    <input type="number" class="form-control m-input m-input--square input-small" placeholder="Số Lương" v-model="item.qty" name="qty" @keyup="discount($event,index,'qty')">
+                <td class="" >
+                    <input type="text" class="form-control m-input m-input--square input-small" placeholder="Số Lương" v-model="item.qty" name="qty" @keyup="discount($event,index,'qty')">
                 </td>
                 <td class="">
-                    <input type="text" class="form-control m-input m-input--square" placeholder="Đơn giá" v-model="item.price" name="price" :readonly="true">
+                    <span>{{item.price | toUSD }}</span>
+                    <input type="hidden" class="" placeholder="Đơn giá" v-model="item.price" name="price" :readonly="true">
                 </td>
-                <td class="" style="width:90px">
-                    <input type="text" class="form-control m-input m-input--square" placeholder="Giảm %" v-model="item.discount_percent" name="discount_percent" @keyup="discount($event,index,'percent')">
-                </td>
-                <td class="">
+                <!-- <td class="">
                     <input type="text" class="form-control m-input m-input--square" placeholder="Giảm Tiền" v-model="item.discount_fixed" name="discount_fixed" @keyup="discount($event,index,'fixed')">
-                </td>
+                </td> -->
                 <td class="">
-                    {{item.total}}
+                    <span>  {{item.total | toUSD }}</span>
+                  
                 </td>
-                <td class="">
-                    <button @click="removeItem(index)" type="button" class="btn m-btn--pill    btn-outline-danger m-btn m-btn--custom m-btn--outline-2x"><i class="la la-trash"></i></button>
+                <td class="text-center">
+                    <button @click="removeItem(index)" type="button" class="btn m-btn--pill    btn-outline-danger m-btn  m-btn--outline-2x square-btn"><i class="la la-trash"></i></button>
                 </td>
             </tr>
         </tbody>
@@ -90,16 +86,14 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                
+                <td><v-checkbox label="Nợ" v-model="order.status"></v-checkbox> </td>
                 <td>Tổng: </td>
                 <td><span class="m-widget13__text m-widget13__number-bolder m--font-brand">{{total}}</span></td>
             </tr>
             
         </tfoot>
     </table>
-    <button @click="submit">submit</button>
 </div>
 </template>
 
@@ -179,6 +173,11 @@
         watch: {},
         components:{
             Typeahead
+        },
+        filters: {
+            toUSD (value) {
+            return `${value.toLocaleString()}`
+            }
         },
         created(){
             if(this.users.length<=0){
