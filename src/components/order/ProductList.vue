@@ -1,11 +1,11 @@
 <template>
-    <v-flex md6 sm12>
+    <v-flex md3 sm12>
         <v-data-table :headers="headers" :items="products" hide-actions class="elevation-1">
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.name }}</td>
                 <td>
-                <button :class="{'btn m-btn--pill btn-outline-primary m-btn m-btn--custom m-btn--outline-2x':true}" @click="addOrderItem(props.item)">
-                        Sửa
+                <button :class="{'btn m-btn--pill btn-outline-primary m-btn m-btn--custom m-btn--outline-2x custom-btn':true}" @click="addOrderItem(props.item)">
+                      <i data-v-0ad82491="" class="fa fa-plus "></i>
                 </button>
                 </td>
             </template>
@@ -71,3 +71,11 @@ export default {
   }
 };
 </script>
+<style scoped>
+.custom-btn {
+  border-color: #ff9800;
+  color: white;
+  background-color:#ff9800;
+  padding: 8px 10px;
+}
+</style>

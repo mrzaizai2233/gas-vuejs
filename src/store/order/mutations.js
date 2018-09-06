@@ -10,7 +10,9 @@ import {
     DELETE_ORDER_SUCCESS,
     ADD_ORDER_ITEM,
     CHANGE_ITEM,
-    REMOVE_ITEM
+    REMOVE_ITEM,
+    UPDATE_QTY_ITEM,
+    UPDATE_ORDER_TOTAL
 } from './mutation-types'
 
 export default {
@@ -54,18 +56,17 @@ export default {
     },
     [ADD_ORDER_ITEM](state, payload) {
         state.order.items.push(payload)
-        let total = state.order.items.reduce((pv,cv)=>{
-            return pv + cv.total
-        },0)
-        state.order.grand_total = total;
-        state.order.subtotal = total;
-       
     },
     [CHANGE_ITEM](state, payload) {
         let item = state.order.items[payload.index]
         item = payload.item
     },
-    [REMOVE_ITEM](state,payload){
-        state.order.items.splice(payload,1)
+    [REMOVE_ITEM](state, payload) {
+        state.order.items.splice(payload, 1)
+    },
+    [UPDATE_ORDER_TOTAL](state, payload) {
+        let total = state.order.items.reduce((pv, cv) => pv += cv.qty * cv.total, 0);
+        state.order.grand_total = total;
+        state.order.subtotal = total;
     }
 }

@@ -182,4 +182,23 @@ export default {
 .v-label {
   margin-bottom: 0;
 }
+.blue.darken-3 {
+    background-color: #ff9800 !important;
+    border-color: #ff9800 !important;
+}
+
+.origin-color {
+   background-color: #ff9800 !important;
+    border-color: #ff9800 !important;
+    color:white !important;
+}
+th,td {
+  color: #181b46 !important;
+}
+span,p {
+  color: #181b46;
+}
+body {
+  color: #181b46;
+}
 </style>

@@ -16,3 +16,9 @@ export const ADD_ORDER_ITEM = 'ADD_ORDER_ITEM';
 export const CHANGE_ITEM = 'CHANGE_ITEM';
 
 export const REMOVE_ITEM = 'REMOVE_ITEM';
+
+export const UPDATE_QTY_ITEM = 'UPDATE_QTY_ITEM';
+
+export const UPDATE_ORDER_TOTAL = 'UPDATE_ORDER_TOTAL';
+
+export const UPDATE_ITEM_TOTAL = 'UPDATE_ITEM_TOTAL';

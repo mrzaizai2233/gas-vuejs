@@ -12,7 +12,8 @@ export default {
         return state.order.items
     },
     total(state) {
+
         return state.order.items.reduce((total, item) =>
-            total += item.total, 0)
+            total += item.qty * item.total, 0)
     }
 }

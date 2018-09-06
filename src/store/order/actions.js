@@ -11,7 +11,8 @@ import {
     DELETE_ORDER_SUCCESS,
     ADD_ORDER_ITEM,
     CHANGE_ITEM,
-    REMOVE_ITEM
+    REMOVE_ITEM,
+    UPDATE_ORDER_TOTAL
 } from './mutation-types'
 import { API_BASE } from '../../config'
 
@@ -72,9 +73,20 @@ export default {
     },
     changeItem: function({ commit }, payload) {
         commit(CHANGE_ITEM, payload)
+        commit(UPDATE_ORDER_TOTAL, payload)
     },
-    removeItem:function({commit},payload){
-        console.log(payload)
-        commit(REMOVE_ITEM,payload)
+    decreaseQty: function({ commit }, payload) {
+        if (payload.qty > 1)
+            payload.qty--;
+        payload.total = payload.qty * payload.price;
+        commit(UPDATE_ORDER_TOTAL, payload)
+    },
+    increaseQty: function({ commit }, payload) {
+        payload.qty++;
+        payload.total = payload.qty * payload.price;
+        commit(UPDATE_ORDER_TOTAL, payload)
+    },
+    removeItem: function({ commit }, payload) {
+        commit(REMOVE_ITEM, payload)
     }
 }
