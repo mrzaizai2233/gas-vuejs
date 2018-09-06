@@ -201,4 +201,11 @@ span,p {
 body {
   color: #181b46;
 }
+.flat-btn {
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    padding: 10px;
+    outline: none;
+}
 </style>

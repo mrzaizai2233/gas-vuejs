@@ -16,33 +16,38 @@
             <tr>
                 <td>
                     <input type="hidden" v-model="order.user">
-            <Typeahead 
-                   :filter-key="'name'" 
-                   :placeholder="'Nhập tên'"
-                   :source="users"
-                   :showKey="'name'"
-                   :start-at="1"
-                   @select="getUser"
+                  <Typeahead 
+                    :filter-key="'name'" 
+                    :placeholder="'Nhập tên'"
+                    :source="users"
+                    :showKey="'name'"
+                    :start-at="1"
+                    @select="selectUser"
+                    ref="select2"
                    > 
-                   </Typeahead>                </td>
+                   </Typeahead>                
+                   </td>
                 <td>
-                    {{userSelected.code}}
+                    {{user.code}}
                 </td>
                 <td>
-                    {{userSelected.phone}}
+                    {{user.phone}}
                 </td>
                 <td>
-                    {{userSelected.adress}}
+                    {{user.adress}}
                 </td>
             </tr>
         </tbody>
     </table>
             </v-flex>
-        <v-flex  v-if="hasItems"  md12 sm12 xs12 elevation-1>
+        <v-flex  v-if="hasItems"  md12 sm12 xs12 elevation-1 >
             <OrderItem  v-for="(item,index) in items" :key="index" :item="item" ></OrderItem>
         </v-flex>
         <v-flex  md12 sm12 col-xs-12 elevation-1 wrap-col-footer>
         <OrderFooter></OrderFooter>
+        </v-flex>
+         <v-flex  md12 sm12 col-xs-12 elevation-1 order-items>
+          <OrderInfo></OrderInfo>
         </v-flex>
     </v-flex>
 
@@ -52,7 +57,10 @@
 import Typeahead from "../Typeahead";
 import OrderItem from "./orderFrom/OrderItem";
 import OrderFooter from "./orderFrom/OrderFooter";
-import { mapGetters, mapActions } from "vuex";
+import OrderInfo from "./orderFrom/OrderInfo";
+import { mapGetters, mapActions ,mapState} from "vuex";
+import { EventBus } from '../../helper/event'
+
 export default {
   name: "OrderFrom",
   data() {
@@ -67,7 +75,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("order", ["changeItem", "removeItem"]),
+    ...mapActions("order", ["changeItem", "removeItem","selectUser"]),
     ...mapActions("user", ["getAllUser"]),
     submit: function() {
       console.log(this.order);
@@ -116,9 +124,9 @@ export default {
     ...mapGetters("order", ["items", "order", "total"]),
     ...mapGetters("product", ["products"]),
     ...mapGetters("user", ["users"]),
-
+    ...mapState("order", ["user"]),
     hasItems: function() {
-      if (this.items.length > 0) return 1;
+      if (this.items && this.items.length > 0) return 1;
       else return 0;
     }
   },
@@ -126,7 +134,8 @@ export default {
   components: {
     Typeahead,
     OrderItem,
-    OrderFooter
+    OrderFooter,
+    OrderInfo
   },
   filters: {
     toUSD(value) {
@@ -137,6 +146,9 @@ export default {
     if (this.users.length <= 0) {
       this.getAllUser();
     }
+    EventBus.$on('order-add-success',()=>{
+      this.$refs.select2.query = ""
+    })
   }
 };
 </script>
@@ -147,45 +159,8 @@ export default {
 }
 
 @media only screen and (max-width: 959px) {
-  .wrap-col-footer {
-    position: fixed;
-    bottom: 0;
-    display: flex;
-    width: 100%;
-  }
-  .col-footer {
-    flex: 1;
-  }
-}
-.flat-btn {
-  width: 100%;
-  border-radius: 0;
-  border: none;
-  padding: 10px;
-  outline: none;
-}
-
-.col-footer {
-  display: flex;
-}
-
-.col-footer .col-footer_total {
-  flex: 2;
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.col-footer .col-footer_total .price {
-  font-weight: bold;
-}
-
-.col-footer .col-footer_add {
-  flex: 1;
-}
-
-.col-footer .col-footer_remove {
-  flex: 1;
+ .order-items {
+   margin-bottom: 30px;
+ }
 }
 </style>

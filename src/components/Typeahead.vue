@@ -11,7 +11,6 @@
             <li v-for="item in filtered" :key="item._id" @click="selectItem(item)">
                 <span>
                     <strong>{{ item[showKey]  }}</strong><br>
-                    <!-- <small>{{ item.body  }}</small> -->
                 </span>
             </li>
         </transition-group>

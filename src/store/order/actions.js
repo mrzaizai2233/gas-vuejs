@@ -12,9 +12,12 @@ import {
     ADD_ORDER_ITEM,
     CHANGE_ITEM,
     REMOVE_ITEM,
-    UPDATE_ORDER_TOTAL
+    UPDATE_ORDER_TOTAL,
+    SELECT_USER
 } from './mutation-types'
 import { API_BASE } from '../../config'
+import { EventBus } from '../../helper/event'
+
 
 export default {
     getAllOrder: function({ commit }) {
@@ -41,8 +44,10 @@ export default {
             axios.post(`${API_BASE}/order/create`,
                 payload
             ).then(respone => {
+
                 commit(ADD_ORDER_SUCCESS, respone.data)
                 commit(REMOVE_ORDER)
+                EventBus.$emit('order-add-success')
                 resolve()
             })
         })
@@ -88,5 +93,8 @@ export default {
     },
     removeItem: function({ commit }, payload) {
         commit(REMOVE_ITEM, payload)
-    }
+    },
+    selectUser:function({ commit }, payload) {
+        commit(SELECT_USER, payload)
+    },
 }

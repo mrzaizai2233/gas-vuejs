@@ -13,6 +13,7 @@ const state  = {
     subtotal:0,
     status:0,
   },
+  user:'',
   isCreate:true
 }
 

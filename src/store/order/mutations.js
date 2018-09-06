@@ -12,7 +12,8 @@ import {
     CHANGE_ITEM,
     REMOVE_ITEM,
     UPDATE_QTY_ITEM,
-    UPDATE_ORDER_TOTAL
+    UPDATE_ORDER_TOTAL,
+    SELECT_USER
 } from './mutation-types'
 
 export default {
@@ -32,7 +33,10 @@ export default {
         state.isCreate = false
     },
     [REMOVE_ORDER](state, payload) {
-        state.order = {};
+        state.order = {
+            items:[]
+        };
+        state.user = {};
         state.isCreate = true
     },
     [ADD_ORDER](state, payload) {
@@ -68,5 +72,9 @@ export default {
         let total = state.order.items.reduce((pv, cv) => pv += cv.qty * cv.total, 0);
         state.order.grand_total = total;
         state.order.subtotal = total;
-    }
+    },
+    [SELECT_USER](state, payload) {
+        state.user = payload;
+        state.order.user = payload._id;
+    },
 }

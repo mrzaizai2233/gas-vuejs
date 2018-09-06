@@ -6,6 +6,9 @@
                 <input type="hidden" v-model="item.product" name="product"></span>
                 </div>
                 <div class="head-item_item head-item_right"><span class="right-title">CK: </span><span class="right-value">0</span></div>
+                 <div class="actions">
+              <button class="btn btn-danger flat-btn" @click="removeItem(item)"><i class="fa fa-times"></i></button>
+            </div>
             </div>
             <div class="cart-item_part body-item">
                 <div class="body-item_item body-item_qty">
@@ -21,6 +24,7 @@
                     </div>
                 <div class="body-item_item body-item_total"> <span>Tổng: {{item.total | toUSD }}</span></div>
             </div>
+           
         </div>
   
 </template>
@@ -111,6 +115,7 @@ export default {
   -webkit-transition: background 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   transition: background 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   will-change: background;
+  transition:max-height 0.25s ease-in-out;
 }
 .cart-item:active {
   background: #f5f5f5;
