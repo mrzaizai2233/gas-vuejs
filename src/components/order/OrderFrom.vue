@@ -43,11 +43,13 @@
         <v-flex  v-if="hasItems"  md12 sm12 xs12 elevation-1 >
             <OrderItem  v-for="(item,index) in items" :key="index" :item="item" ></OrderItem>
         </v-flex>
-        <v-flex  md12 sm12 col-xs-12 elevation-1 wrap-col-footer>
-        <OrderFooter></OrderFooter>
-        </v-flex>
+      
          <v-flex  md12 sm12 col-xs-12 elevation-1 order-items>
           <OrderInfo></OrderInfo>
+        </v-flex>
+
+          <v-flex  md12 sm12 col-xs-12 elevation-1 wrap-col-footer>
+        <OrderFooter></OrderFooter>
         </v-flex>
     </v-flex>
 
@@ -77,48 +79,10 @@ export default {
   methods: {
     ...mapActions("order", ["changeItem", "removeItem","selectUser"]),
     ...mapActions("user", ["getAllUser"]),
-    submit: function() {
-      console.log(this.order);
-    },
-    discount: function($event, index, element) {
-      let item = this.items[index];
-      if (element === "qty") {
-        item.discount_percent = 0;
-        item.discount_fixed = 0;
-      }
-      item.total = item.qty ? parseInt(item.qty) * parseFloat(item.price) : 0;
-      if (element === "fixed") {
-        if (item.discount_fixed <= item.price) {
-          item.discount_percent = parseFloat(
-            item.discount_fixed * 100 / item.total
-          );
-          item.discount_fixed = item.discount_fixed ? item.discount_fixed : 0;
-        }
-      }
-      if (element === "percent") {
-        if (item.discount_percent <= 100) {
-          item.discount_fixed = parseFloat(
-            item.total * item.discount_percent / 100
-          );
-          item.discount_percent = item.discount_percent
-            ? item.discount_percent
-            : 0;
-        }
-      }
-      if (item.discount_percent <= 100 && item.discount_fixed <= item.price) {
-        item.total = item.total - item.discount_fixed;
-      }
-    },
-    productName: function(product_id) {
-      return this.products.find(product => product._id === product_id).name;
-    },
     getUser: function(item) {
       this.userSelected = item;
       this.order.user = item._id;
     },
-    minusItemQty: function(item) {
-      item.qty++;
-    }
   },
   computed: {
     ...mapGetters("order", ["items", "order", "total"]),

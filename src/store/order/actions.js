@@ -13,7 +13,9 @@ import {
     CHANGE_ITEM,
     REMOVE_ITEM,
     UPDATE_ORDER_TOTAL,
-    SELECT_USER
+    SELECT_USER,
+    INCREATE_QTY_ITEM,
+    DECREATE_ORDER_ITEM
 } from './mutation-types'
 import { API_BASE } from '../../config'
 import { EventBus } from '../../helper/event'
@@ -65,27 +67,37 @@ export default {
             commit(DELETE_ORDER_SUCCESS, respone.data)
         })
     },
-    addOrderItem: function({ commit }, payload) {
-        let item = {
-            product: payload._id,
-            qty: 1,
-            price: payload.price,
-            discount_percent: 0,
-            discount_fixed: 0,
-            total: 1 * payload.price
+    addOrderItem: function({ commit, state }, payload) {
+        let item = null;
+        item = state.order.items.find(item => item.product === payload._id);
+        if (item === undefined) {
+            item = {
+                product: payload._id,
+                qty: 1,
+                price: payload.price,
+                discount_percent: 0,
+                discount_fixed: 0,
+                total: 1 * payload.price
+            }
+            commit(ADD_ORDER_ITEM, item)
+
+        } else {
+            commit(INCREATE_QTY_ITEM, item.product)
         }
-        commit(ADD_ORDER_ITEM, item)
+
     },
     changeItem: function({ commit }, payload) {
         commit(CHANGE_ITEM, payload)
         commit(UPDATE_ORDER_TOTAL, payload)
     },
-    decreaseQty: function({ commit }, payload) {
+
+    decreaseQty: function({ commit, state }, payload) {
         if (payload.qty > 1)
             payload.qty--;
         payload.total = payload.qty * payload.price;
         commit(UPDATE_ORDER_TOTAL, payload)
     },
+
     increaseQty: function({ commit }, payload) {
         payload.qty++;
         payload.total = payload.qty * payload.price;
@@ -94,7 +106,7 @@ export default {
     removeItem: function({ commit }, payload) {
         commit(REMOVE_ITEM, payload)
     },
-    selectUser:function({ commit }, payload) {
+    selectUser: function({ commit }, payload) {
         commit(SELECT_USER, payload)
     },
 }
