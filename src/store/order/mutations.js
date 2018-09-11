@@ -30,6 +30,7 @@ export default {
         order.status = !order.status
     },
     [SELECT_ORDER](state, payload) {
+       
         state.order = payload
         state.isCreate = false
     },

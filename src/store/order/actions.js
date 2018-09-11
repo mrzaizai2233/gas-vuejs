@@ -35,8 +35,22 @@ export default {
             commit(CHANGE_STATUS_ORDER, respone.data)
         })
     },
-    selectOrder: function({ commit }, payload) {
-        commit(SELECT_ORDER, {...payload })
+    selectOrder: function({ commit, dispatch  }, payload) {
+        dispatch('removeOrder')
+        let order= {}
+        order = Object.assign({},payload);
+        let items = [];
+        order.items.forEach((item,index,arr) => {
+          let i = item;
+          i.product = arr[index].product?arr[index].product._id:''
+          i.total = i.qty * i.price;
+          items.push(i)
+        });
+        order.items = items;
+        order.user = payload.user._id;
+     
+        commit(SELECT_ORDER, order)
+        commit(SELECT_USER, payload.user)
     },
     removeOrder: function({ commit }) {
         commit(REMOVE_ORDER)

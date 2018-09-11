@@ -8,7 +8,7 @@
                     <v-switch v-model=" props.item.status"></v-switch>
                 </td>
                 <td>{{ props.item.grand_total?props.item.grand_total.toLocaleString():0 }}</td>
-
+                <td><button @click="thisSelectOrder(props.item)">Sửa</button></td>
             </template>
             <template slot="FootCell" >
        
@@ -17,7 +17,7 @@
         </v-flex>
 </template>
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "OrdertList",
@@ -39,43 +39,38 @@ export default {
         {
           text: "Tổng",
           value: "status"
+        },
+        {
+          text: "Sửa",
+          value: "status"
         }
       ]
     };
   },
   computed: {
-    ...mapGetters("order", ["orders"])
+    ...mapGetters("order", ["orders"]),
+    ...mapGetters("product", ["products"])
+
   },
 
   methods: {
     ...mapActions("product", ["getAllProduct"]),
 
-    ...mapActions("order", ["getAllOrder"]),
+    ...mapActions("order", ["getAllOrder","selectOrder"]),
+    ...mapMutations("order",['SELECT_ORDER','SELECT_USER']),
+    thisSelectOrder(payload) {
 
-    addItem(product) {
-      let item = {
-        product: product._id,
-
-        qty: 1,
-
-        price: product.price,
-
-        discout_percent: discout_percent,
-
-        discout_fixed: discout_fixed,
-
-        total: 1 * product.price
-      };
-
-      console.log(item);
-
-      this.order.items.push(item);
+      this.selectOrder(payload)
+      this.$router.push({ name: "Order"})
     }
   },
 
   created() {
     if (this.orders.length <= 0) {
       this.getAllOrder();
+    }
+    if (this.products.length <= 0) {
+      this.getAllProduct();
     }
   }
 };

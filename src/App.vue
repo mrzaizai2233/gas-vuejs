@@ -120,9 +120,9 @@ export default {
     dialog: false,
     drawer: null,
     items: [
-      { icon: 'contacts', text: 'Contacts' },
-      { icon: 'history', text: 'Frequently contacted' },
-      { icon: 'content_copy', text: 'Duplicates' },
+      { icon: 'contacts', text: 'Đơn Hàng' },
+      { icon: 'history', text: 'Khách hàng' },
+      { icon: 'content_copy', text: 'Sản phẩm' },
       {
         icon: 'keyboard_arrow_up',
         'icon-alt': 'keyboard_arrow_down',

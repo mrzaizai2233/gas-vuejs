@@ -90,6 +90,7 @@ export default {
     ...mapGetters("user", ["users"]),
     ...mapState("order", ["user"]),
     hasItems: function() {
+      console.log(this.items)
       if (this.items && this.items.length > 0) return 1;
       else return 0;
     }

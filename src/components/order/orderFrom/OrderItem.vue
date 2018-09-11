@@ -47,6 +47,8 @@ export default {
   methods: {
     ...mapActions("order", ["increaseQty","decreaseQty", "removeItem"]),
     ...mapActions("user", ["getAllUser"]),
+        ...mapActions("product", ["getAllProduct"]),
+
     submit: function() {
       console.log(this.order);
     },
@@ -80,7 +82,9 @@ export default {
       }
     },
     productName: function(product_id) {
-      return this.products.find(product => product._id === product_id).name;
+      console.log(product_id)
+      let product = this.products.find(product => product._id === product_id);
+      return product?product.name:''
     },
     getUser: function(item) {
       this.userSelected = item;
@@ -104,6 +108,13 @@ export default {
   filters: {
     toUSD(value) {
       return `${value.toLocaleString()}`;
+    }
+  }
+  ,
+  created() {
+   
+    if (this.products.length <= 0) {
+      this.getAllProduct();
     }
   }
 };
