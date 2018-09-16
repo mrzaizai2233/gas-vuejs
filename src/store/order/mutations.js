@@ -54,11 +54,8 @@ export default {
         state.isCreate = true
     },
     [DELETE_ORDER_SUCCESS](state, payload) {
-        state.orders.find((order, index) => {
-            if (order._id === payload) {
-                state.orders.splice(index, 1)
-            }
-        })
+       let orders = state.orders.filter(order => order._id !== payload)
+       state.orders = orders
     },
     [ADD_ORDER_ITEM](state, payload) {
         state.order.items.push(payload)
