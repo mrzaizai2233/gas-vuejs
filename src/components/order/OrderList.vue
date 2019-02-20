@@ -1,5 +1,6 @@
 <template>
     <v-flex md12 sm12>
+        <v-daterange/>
         <v-data-table :headers="headers" :items="orders" hide-actions class="elevation-1" :hideActions="false" :rowsPerPageText="'7'">
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.user?props.item.user.name:''}}</td>
@@ -45,12 +46,16 @@ export default {
           text: "Sửa",
           value: "status"
         }
-      ]
+      ],
+
     };
   },
   computed: {
     ...mapGetters("order", ["orders"]),
-    ...mapGetters("product", ["products"])
+    ...mapGetters("product", ["products"]),
+    data:function(){
+
+    }
   },
   methods: {
     ...mapActions("product", ["getAllProduct"]),
