@@ -47,7 +47,7 @@
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title>
-                  {{ child.text }}
+                  <router-link :to="{path:child.path}">{{ child.text }}</router-link>
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -58,7 +58,7 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>
-                {{ item.text }}
+                <router-link :to="{path:item.path}"> {{ item.text }}</router-link>
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -120,16 +120,17 @@ export default {
     dialog: false,
     drawer: null,
     items: [
-      { icon: 'contacts', text: 'Đơn Hàng' },
-      { icon: 'history', text: 'Khách hàng' },
-      { icon: 'content_copy', text: 'Sản phẩm' },
+      { icon: 'contacts', text: 'Đơn Hàng', path:'orders' },
+      { icon: 'content_copy', text: 'Sản phẩm', path: 'products' },
+      { icon: 'widgets', text: 'Danh mục', path: 'categorys' },
+      { icon: 'history', text: 'Khách hàng', path: 'customers' },
       {
         icon: 'keyboard_arrow_up',
         'icon-alt': 'keyboard_arrow_down',
-        text: 'Labels',
+        text: 'Category',
         model: true,
         children: [
-          { icon: 'add', text: 'Create label' }
+          { icon: 'add', text: 'Sản phẩm', path: 'products' }
         ]
       },
       {

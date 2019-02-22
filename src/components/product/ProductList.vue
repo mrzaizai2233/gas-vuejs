@@ -4,24 +4,24 @@
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>
+                        <th width="10%">
                             #
                         </th>
-                        <th>
-                            Tên Danh Mục
+                        <th  width="40%">
+                            Tên Sản Phẩm
                         </th>
-                        <th>
+                        <th width="15%">
                             Trạng Thái
                         </th>
-                            <th>
+                            <th  width="35%">
                             Hành Động
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="product in products" :key="product._id" @dblclick="selectProduct(product)">
+                    <tr v-for="(product,i) in products" :key="product._id" @dblclick="selectProduct(product)">
                         <th scope="row">
-                            1
+                           {{++i}}
                         </th>
                         <td>
                             {{product.name}}
@@ -35,9 +35,12 @@
                         </span>
                         </td>
                         <td>
-                            <button @click="deleteProduct(product._id)" type="button" class="btn m-btn--pill    btn-outline-danger m-btn m-btn--custom m-btn--outline-2x">
-                                <i class="la la-trash"></i>
-                            </button>
+                             <v-btn fab dark small color="pink" @click="deleteProduct(product._id)">
+                                <v-icon dark>clear</v-icon>
+                            </v-btn>
+                             <v-btn fab dark small color="info" @click="selectProduct(product)">
+                                <v-icon dark>border_color</v-icon>
+                            </v-btn>
                         </td>
 
                     </tr>
@@ -72,3 +75,14 @@ import {mapActions,mapGetters } from 'vuex'
         }
     }
 </script>
+<style scoped>
+    tr td {
+        cursor: pointer;
+    }
+    table tr td:nth-child(3),table tr th:nth-child(3),table tr td:nth-child(4),table tr th:nth-child(4) {
+        text-align: center;
+    }
+    button {
+        outline: none;
+    }
+</style>

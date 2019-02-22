@@ -22,17 +22,17 @@ export default new Router({
             component: OrderView
         },
         {
-            path: '/category',
+            path: '/categorys',
             name: 'Category',
             component: Category
         },
         {
-            path: '/product',
+            path: '/products',
             name: 'Product',
             component: Product
         },
         {
-            path: '/user',
+            path: '/users',
             name: 'User',
             component: User
         },

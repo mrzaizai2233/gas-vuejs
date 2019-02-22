@@ -10,8 +10,14 @@
                 </td>
                 <td>{{ props.item.grand_total?props.item.grand_total.toLocaleString():0 }}</td>
                 <td>
-                  <button @click="thisSelectOrder(props.item)">Sửa</button>
-                  <button @click="deleteOrder(props.item._id)">Xóa</button>
+                        <v-btn fab dark small color="info" @click="thisSelectOrder(props.item)">
+                                <v-icon dark>border_color</v-icon>
+                            </v-btn>
+                     <v-btn fab dark small color="pink" @click="deleteOrder(props.item._id)">
+                                <v-icon dark>clear</v-icon>
+                            </v-btn>
+                       
+                  
                   </td>
             </template>
            
