@@ -1,32 +1,36 @@
 <template>
-    <v-flex md12 sm12>
-        <v-daterange/>
-        <v-data-table :headers="headers" :items="orders" hide-actions class="elevation-1" :hideActions="false" :rowsPerPageText="'7'">
-            <template slot="items" slot-scope="props">
-                <td>{{ props.item.user?props.item.user.name:''}}</td>
-                <td>{{ props.item.create_at | formatDate }}</td>
-                <td>
-                    <v-switch v-model=" props.item.status"></v-switch>
-                </td>
-                <td>{{ props.item.grand_total?props.item.grand_total.toLocaleString():0 }}</td>
-                <td>
-                        <v-btn fab dark small color="info" @click="thisSelectOrder(props.item)">
-                                <v-icon dark>border_color</v-icon>
-                            </v-btn>
-                     <v-btn fab dark small color="pink" @click="deleteOrder(props.item._id)">
-                                <v-icon dark>clear</v-icon>
-                            </v-btn>
-                       
-                  
-                  </td>
-            </template>
-           
-        </v-data-table>
-        </v-flex>
+  <v-flex md12 sm12>
+    <!-- <v-daterange/> -->
+    <v-data-table
+      :headers="headers"
+      :items="orders"
+      hide-actions
+      class="elevation-1"
+      :hideActions="false"
+      :rowsPerPageText="'7'"
+    >
+      <template slot="items" slot-scope="props">
+        <td>{{ props.item.user?props.item.user.name:''}}</td>
+        <td>{{ props.item.create_at | formatDate }}</td>
+        <td>
+          <v-switch v-model=" props.item.status"></v-switch>
+        </td>
+        <td>{{ props.item.grand_total?props.item.grand_total.toLocaleString():0 }}</td>
+        <td>
+          <v-btn fab dark small color="info" @click="thisSelectOrder(props.item)">
+            <v-icon dark>border_color</v-icon>
+          </v-btn>
+          <v-btn fab dark small color="pink" @click="deleteOrder(props.item._id)">
+            <v-icon dark>clear</v-icon>
+          </v-btn>
+        </td>
+      </template>
+    </v-data-table>
+  </v-flex>
 </template>
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
-import moment from 'moment'
+import moment from "moment";
 export default {
   name: "OrdertList",
   data() {
@@ -52,24 +56,21 @@ export default {
           text: "Sửa",
           value: "status"
         }
-      ],
-
+      ]
     };
   },
   computed: {
     ...mapGetters("order", ["orders"]),
     ...mapGetters("product", ["products"]),
-    data:function(){
-
-    }
+    data: function() {}
   },
   methods: {
     ...mapActions("product", ["getAllProduct"]),
-    ...mapActions("order", ["getAllOrder","selectOrder","deleteOrder"]),
-    ...mapMutations("order",['SELECT_ORDER','SELECT_USER']),
+    ...mapActions("order", ["getAllOrder", "selectOrder", "deleteOrder"]),
+    ...mapMutations("order", ["SELECT_ORDER", "SELECT_USER"]),
     thisSelectOrder(payload) {
-      this.selectOrder(payload)
-      this.$router.push({ name: "Order"})
+      this.selectOrder(payload);
+      this.$router.push({ name: "Order" });
     }
   },
   created() {
@@ -80,7 +81,7 @@ export default {
       this.getAllProduct();
     }
   },
-   filters: {
+  filters: {
     formatDate(value) {
       return moment(value).format("D-M-YYYY");
     }
@@ -91,7 +92,7 @@ export default {
 .custom-btn {
   border-color: #ff9800;
   color: white;
-  background-color:#ff9800;
+  background-color: #ff9800;
   padding: 8px 10px;
 }
 </style>
