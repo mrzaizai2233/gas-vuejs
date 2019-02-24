@@ -7,36 +7,25 @@
           <input type="hidden" v-model="item.product" name="product">
         </span>
       </div>
-      {{item.discount_percent}}
-      {{item.discount_fixed}}
-      <div class="head-item_item head-item_right" @click="focusDiscount">
-        <div class="group-text-discount" v-show="!isEditDiscount">
+      <div class="head-item_item head-item_right">
+        <div class="group-text-discount" v-show="!isEditDiscount" @click="focusDiscount">
           <span class="right-title">CK:</span>
-          <span class="right-value">0</span>
+          <span class="right-value">{{discount}}</span>
         </div>
-        <div class="group-input-discount" v-show="isEditDiscount">
-          <button class="btn btn-danger flat-btn" @click="isEditDiscount=false">
-            <i class="fa fa-times"></i>
+        <div class="group-input-discount input-group" v-show="isEditDiscount">
+          <button class="btn btn-info flat-btn" @click="toggleEditDiscount">
+            <i class="fa fa-check"></i>
           </button>
           <input
             type="text"
-            class="form-control input-discoun"
+            class="form-control input-discount"
             ref="discountInput"
-            v-model="item.discount_fixed"
+            v-model="discount"
           >
-          <button
-            class="btn btn-danger flat-btn"
-            @click="toggleDiscountType"
-            v-show="discountType=='percent'"
-          >
-            <i class="fa fa-usd"></i>
-          </button>
-          <button
-            class="btn btn-danger flat-btn"
-            @click="toggleDiscountType"
-            v-show="discountType=='fixed'"
-          >
-            <i class="fa fa-percent"></i>
+          <button class="btn btn-danger flat-btn" @click="toggleDiscountType">
+            <i
+              :class="{'fa':true,'fa-usd':discountType=='fixed','fa-percent':discountType=='percent'}"
+            ></i>
           </button>
         </div>
       </div>
@@ -86,17 +75,25 @@ export default {
   data() {
     return {
       isEditDiscount: false,
-      discountType: "percent"
+      discountType: "percent",
+      discount: 0
     };
   },
   props: {
     item: {
       type: [String, Array, Object],
       required: true
+    },
+    index: {
+      tyep: [Number],
+      required: true
     }
   },
   methods: {
     ...mapActions("order", ["increaseQty", "decreaseQty", "removeItem"]),
+    ...mapActions({
+      discountAction: "order/discount"
+    }),
     ...mapActions("user", ["getAllUser"]),
     ...mapActions("product", ["getAllProduct"]),
 
@@ -109,7 +106,7 @@ export default {
         this.$refs.discountInput.focus();
       });
     },
-    discount: function($event, index, element) {
+    discount1: function($event, index, element) {
       let item = this.items[index];
       if (element === "qty") {
         item.discount_percent = 0;
@@ -139,8 +136,15 @@ export default {
       }
     },
     toggleDiscountType: function() {
-      console.log(this.discountType);
       this.discountType = this.discountType == "percent" ? "fixed" : "percent";
+      if (this.discountType == "percent") {
+        this.discount = this.item.discount_percent;
+      } else {
+        this.discount = this.item.discount_fixed;
+      }
+    },
+    toggleEditDiscount: function() {
+      this.isEditDiscount = false;
     },
     productName: function(product_id) {
       let product = this.products.find(product => product._id === product_id);
@@ -164,18 +168,41 @@ export default {
     },
     discountFixed: function() {
       return this.item.discount_fixed;
+    },
+    qty: function() {
+      return this.item.qty;
     }
   },
   watch: {
-    discountFixed: function() {
-      if (this.item.discount_fixed <= this.item.price) {
-        this.item.discount_percent = parseFloat(
-          (this.item.discount_fixed * 100) / this.item.total
-        );
-        this.item.discount_fixed = this.item.discount_fixed
-          ? this.item.discount_fixed
-          : 0;
+    discount: function(val) {
+      this.discountAction({
+        discountType: this.discountType,
+        discount: this.discount,
+        index: this.index
+      });
+      if (this.discountType == "percent") {
+        if (this.discount <= 100) {
+          this.item.discount_fixed = parseFloat(
+            (this.item.price * this.item.qty * this.discount) / 100
+          );
+
+          this.item.discount_percent = this.discount ? this.discount : 0;
+        }
+      } else if (this.discountType == "fixed") {
+        if (this.discount <= this.item.price * this.item.qty) {
+          this.item.discount_percent = parseFloat(
+            (this.discount * 100) / (this.item.price * this.item.qty)
+          );
+          this.item.discount_fixed = this.discount ? this.discount : 0;
+        }
       }
+
+      this.item.total =
+        parseFloat(this.item.price * this.item.qty) -
+        parseFloat(this.item.discount_fixed);
+    },
+    qty: function() {
+      this.discount = 0;
     }
   },
   components: {},
@@ -263,5 +290,12 @@ export default {
   outline: none;
   background-color: #ff9800;
   color: white;
+}
+.group-input-discount .input-discount {
+  width: 35%;
+  display: inline-block;
+}
+.group-input-discount button {
+  width: 20%;
 }
 </style>

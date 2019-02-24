@@ -29,3 +29,5 @@ export const SELECT_USER = 'SELECT_USER';
 export const INCREATE_QTY_ITEM = 'INCREATE_QTY_ITEM';
 
 export const DECREATE_ORDER_ITEM = 'DECREATE_ORDER_ITEM';
+
+export const DISCOUNT = 'DISCOUNT';

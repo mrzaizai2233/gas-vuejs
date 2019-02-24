@@ -33,7 +33,7 @@
       </table>
     </v-flex>
     <v-flex v-if="hasItems" md12 sm12 xs12 elevation-1>
-      <OrderItem v-for="(item,index) in items" :key="index" :item="item"></OrderItem>
+      <OrderItem v-for="(item,index) in items" :key="index" :index="index" :item="item"></OrderItem>
     </v-flex>
     <v-flex md12 sm12 col-xs-12 elevation-1 order-items>
       <OrderInfo></OrderInfo>
