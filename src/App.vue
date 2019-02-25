@@ -1,23 +1,11 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      :clipped="$vuetify.breakpoint.lgAndUp"
-      v-model="drawer"
-      fixed
-      app
-    >
+    <v-navigation-drawer :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawer" fixed app>
       <v-list dense>
         <template v-for="item in items">
-          <v-layout
-            v-if="item.heading"
-            :key="item.heading"
-            row
-            align-center
-          >
+          <v-layout v-if="item.heading" :key="item.heading" row align-center>
             <v-flex xs6>
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
+              <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
             </v-flex>
             <v-flex xs6 class="text-xs-center">
               <a href="#!" class="body-2 black--text">EDIT</a>
@@ -28,20 +16,14 @@
             v-model="item.model"
             :key="item.text"
             :prepend-icon="item.model ? item.icon : item['icon-alt']"
-            append-icon=""
+            append-icon
           >
             <v-list-tile slot="activator">
               <v-list-tile-content>
-                <v-list-tile-title>
-                  {{ item.text }}
-                </v-list-tile-title>
+                <v-list-tile-title>{{ item.text }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile
-              v-for="(child, i) in item.children"
-              :key="i"
-             
-            >
+            <v-list-tile v-for="(child, i) in item.children" :key="i">
               <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-tile-action>
@@ -58,20 +40,14 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>
-                <router-link :to="{path:item.path}"> {{ item.text }}</router-link>
+                <router-link :to="{path:item.path}">{{ item.text }}</router-link>
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
-      color="blue darken-3"
-      dark
-      app
-      fixed
-    >
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="blue darken-3" dark app fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">Quản lý GAS</span>
@@ -93,89 +69,83 @@
       </v-btn>
       <v-btn icon large>
         <v-avatar size="32px" tile>
-          <img
-            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-            alt="Vuetify"
-          >
+          <img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify">
         </v-avatar>
       </v-btn>
     </v-toolbar>
     <v-content>
       <router-view></router-view>
-
     </v-content>
   </v-app>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
-    name: 'App',
-    computed:{
-        ...mapGetters([
-            'pageTitle'
-        ])
-    },
+  name: "App",
+  computed: {
+    ...mapGetters(["pageTitle"])
+  },
   data: () => ({
     dialog: false,
     drawer: null,
     items: [
-      { icon: 'contacts', text: 'Đơn Hàng', path:'orders' },
-      { icon: 'content_copy', text: 'Sản phẩm', path: 'products' },
-      { icon: 'widgets', text: 'Danh mục', path: 'categorys' },
-      { icon: 'history', text: 'Khách hàng', path: 'customers' },
+      { icon: "contacts", text: "Đơn Hàng", path: "orders" },
+      { icon: "content_copy", text: "Sản phẩm", path: "products" },
+      { icon: "widgets", text: "Danh mục", path: "categorys" },
+      { icon: "history", text: "Khách hàng", path: "customers" },
       {
-        icon: 'keyboard_arrow_up',
-        'icon-alt': 'keyboard_arrow_down',
-        text: 'Category',
+        icon: "keyboard_arrow_up",
+        "icon-alt": "keyboard_arrow_down",
+        text: "Category",
         model: true,
-        children: [
-          { icon: 'add', text: 'Sản phẩm', path: 'products' }
-        ]
+        children: [{ icon: "add", text: "Sản phẩm", path: "products" }]
       },
       {
-        icon: 'keyboard_arrow_up',
-        'icon-alt': 'keyboard_arrow_down',
-        text: 'More',
+        icon: "keyboard_arrow_up",
+        "icon-alt": "keyboard_arrow_down",
+        text: "More",
         model: false,
         children: [
-          { text: 'Import' },
-          { text: 'Export' },
-          { text: 'Print' },
-          { text: 'Undo changes' },
-          { text: 'Other contacts' }
+          { text: "Import" },
+          { text: "Export" },
+          { text: "Print" },
+          { text: "Undo changes" },
+          { text: "Other contacts" }
         ]
-      },
-//      { icon: 'settings', text: 'Settings' },
-//      { icon: 'chat_bubble', text: 'Send feedback' },
-//      { icon: 'help', text: 'Help' },
-//      { icon: 'phonelink', text: 'App downloads' },
-//      { icon: 'keyboard', text: 'Go to the old version' }
+      }
+      //      { icon: 'settings', text: 'Settings' },
+      //      { icon: 'chat_bubble', text: 'Send feedback' },
+      //      { icon: 'help', text: 'Help' },
+      //      { icon: 'phonelink', text: 'App downloads' },
+      //      { icon: 'keyboard', text: 'Go to the old version' }
     ]
   }),
   props: {
     source: String
   }
-}
+};
 </script>
 
 <style>
 .v-text-field__slot {
   height: auto;
 }
-.table td, .table th {
- vertical-align: center !important;
+.table td,
+.table th {
+  vertical-align: center !important;
 }
 .m-portlet .m-portlet__body {
   padding: 10px;
 }
-.table td, .table th {
-    padding: 5px;
-    vertical-align: middle;
-    border-top: 1px solid #f4f5f8;
+.table td,
+.table th {
+  padding: 5px;
+  vertical-align: middle;
+  border-top: 1px solid #f4f5f8;
 }
 .square-btn {
-      padding: 5px 10px 5px 10px;
+  padding: 5px 10px 5px 10px;
 }
 .hover-pointer {
   cursor: pointer;
@@ -184,29 +154,37 @@ export default {
   margin-bottom: 0;
 }
 .blue.darken-3 {
-    background-color: #ff9800 !important;
-    border-color: #ff9800 !important;
+  background-color: #ff9800 !important;
+  border-color: #ff9800 !important;
 }
 
 .origin-color {
-   background-color: #ff9800 !important;
-    border-color: #ff9800 !important;
-    color:white !important;
+  background-color: #ff9800 !important;
+  border-color: #ff9800 !important;
+  color: white !important;
 }
-th,td {
+th,
+td {
   color: #181b46 !important;
 }
-span,p {
+span,
+p {
   color: #181b46;
 }
 body {
   color: #181b46;
 }
 .flat-btn {
-    width: 100%;
-    border-radius: 0;
-    border: none;
-    padding: 10px;
-    outline: none;
+  width: 100%;
+  border-radius: 0;
+  border: none;
+  padding: 10px;
+  outline: none;
+}
+.main-color {
+  background-color: #ff9900;
+}
+.main-color:hover {
+  background-color: #181b46;
 }
 </style>

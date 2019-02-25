@@ -88,10 +88,22 @@ export default {
   },
   [DISCOUNT](state, {
     index,
-    item
+    discount_fixed,
+    discount_percent
   }) {
-    // state.order.grand_total = 1;
-    // state.order.subtotal = 1;
+    const item = state.order.items.filter(item => item.product == index)
+    item.discount_fixed = discount_fixed
+    item.discount_percent = discount_percent
+    item.total = parseFloat(item.price * item.qty) - parseFloat(item.discount_fixed);
+
+  },
+  [UPDATE_QTY_ITEM](state, {
+    index,
+    qty
+  }) {
+    let item = state.order.items[index]
+    item.qty = qty
+    item.total = item.qty * item.price
   }
 
 }

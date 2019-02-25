@@ -10,10 +10,13 @@
       <div class="head-item_item head-item_right">
         <div class="group-text-discount" v-show="!isEditDiscount" @click="focusDiscount">
           <span class="right-title">CK:</span>
-          <span class="right-value">{{discount}}</span>
+          <span class="right-value">{{item.discount_fixed}}({{item.discount_percent}}%)</span>
         </div>
-        <div class="group-input-discount input-group" v-show="isEditDiscount">
-          <button class="btn btn-info flat-btn" @click="toggleEditDiscount">
+        <div class="group-input-discount input-group slide-fade" v-show="isEditDiscount">
+          <button
+            class="btn btn-info flat-btn btn-discount-done main-color"
+            @click="toggleEditDiscount"
+          >
             <i class="fa fa-check"></i>
           </button>
           <input
@@ -22,7 +25,10 @@
             ref="discountInput"
             v-model="discount"
           >
-          <button class="btn btn-danger flat-btn" @click="toggleDiscountType">
+          <button
+            class="btn btn-danger flat-btn btn-toggle-discount-type main-color"
+            @click="toggleDiscountType"
+          >
             <i
               :class="{'fa':true,'fa-usd':discountType=='fixed','fa-percent':discountType=='percent'}"
             ></i>
@@ -38,11 +44,14 @@
     <div class="cart-item_part body-item">
       <div class="body-item_item body-item_qty">
         <div class="actions">
-          <button class="square-btn minus-btn" @click="decreaseQty(item)">
+          <button
+            class="square-btn minus-btn"
+            @click="updateQtyItem({index:index,type:'decreate'})"
+          >
             <i class="fa fa-caret-left"></i>
           </button>
           <input type="text" class="order-qty" v-model="item.qty" name="qty">
-          <button class="square-btn plus-btn" @click="increaseQty(item)">
+          <button class="square-btn plus-btn" @click="updateQtyItem({index:index})">
             <i class="fa fa-caret-right"></i>
           </button>
         </div>
@@ -90,13 +99,16 @@ export default {
     }
   },
   methods: {
-    ...mapActions("order", ["increaseQty", "decreaseQty", "removeItem"]),
+    ...mapActions("order", ["updateQtyItem", "removeItem"]),
     ...mapActions({
       discountAction: "order/discount"
     }),
     ...mapActions("user", ["getAllUser"]),
     ...mapActions("product", ["getAllProduct"]),
-
+    updateItemQty: function($type = "increate") {
+      this.item.qty++;
+      console.log(this.order.items);
+    },
     submit: function() {
       console.log(this.order);
     },
@@ -178,31 +190,8 @@ export default {
       this.discountAction({
         discountType: this.discountType,
         discount: this.discount,
-        index: this.index
+        index: this.item.product
       });
-      if (this.discountType == "percent") {
-        if (this.discount <= 100) {
-          this.item.discount_fixed = parseFloat(
-            (this.item.price * this.item.qty * this.discount) / 100
-          );
-
-          this.item.discount_percent = this.discount ? this.discount : 0;
-        }
-      } else if (this.discountType == "fixed") {
-        if (this.discount <= this.item.price * this.item.qty) {
-          this.item.discount_percent = parseFloat(
-            (this.discount * 100) / (this.item.price * this.item.qty)
-          );
-          this.item.discount_fixed = this.discount ? this.discount : 0;
-        }
-      }
-
-      this.item.total =
-        parseFloat(this.item.price * this.item.qty) -
-        parseFloat(this.item.discount_fixed);
-    },
-    qty: function() {
-      this.discount = 0;
     }
   },
   components: {},
@@ -291,11 +280,22 @@ export default {
   background-color: #ff9800;
   color: white;
 }
+.group-input-discount {
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.5, 1);
+  position: absolute;
+  width: 150px;
+}
 .group-input-discount .input-discount {
   width: 35%;
   display: inline-block;
 }
 .group-input-discount button {
   width: 20%;
+}
+.btn-discount-done {
+  border-radius: 20px 0px 0px 20px;
+}
+.btn-toggle-discount-type {
+  border-radius: 0px 20px 20px 0px;
 }
 </style>

@@ -16,14 +16,15 @@ import {
   SELECT_USER,
   INCREATE_QTY_ITEM,
   DECREATE_ORDER_ITEM,
-  DISCOUNT
-} from './mutation-types'
+  DISCOUNT,
+  UPDATE_QTY_ITEM
+} from './mutation-types';
 import {
   API_BASE
-} from '../../config'
+} from '../../config';
 import {
   EventBus
-} from '../../helper/event'
+} from '../../helper/event';
 
 
 export default {
@@ -145,7 +146,7 @@ export default {
   }, payload) {
     payload.qty++;
     payload.total = payload.qty * payload.price;
-    commit(UPDATE_ORDER_TOTAL, payload)
+    // commit(UPDATE_ORDER_TOTAL, payload)
   },
   removeItem: function ({
     commit
@@ -161,31 +162,60 @@ export default {
     commit,
     state
   }, payload) {
-    let item = state.order.items[payload.index]
+    const item = state.order.items.filter(item => item.product == payload.index)
+    let discount_fixed = 0
+    let discount_percent = 0
     if (payload.discountType == "percent") {
       if (payload.discount <= 100) {
-        item.discount_fixed = parseFloat(
+        discount_fixed = parseFloat(
           (item.price * item.qty * payload.discount) / 100
         );
-        item.discount_percent = payload.discount ? payload.discount : 0;
+        discount_percent = payload.discount ? payload.discount : 0;
       }
     } else if (payload.discountType == "fixed") {
       if (payload.discount <= item.price * item.qty) {
-        item.discount_percent = parseFloat(
+        discount_percent = parseFloat(
           (payload.discount * 100) / (item.price * item.qty)
         );
-        item.discount_fixed = payload.discount ? payload.discount : 0;
+        discount_fixed = payload.discount ? payload.discount : 0;
       }
     }
-
-    item.total =
-      parseFloat(item.price * item.qty) -
-      parseFloat(item.discount_fixed);
     commit(DISCOUNT, {
-      index: payload.index,
-      item: item
+      index: item.product,
+      discount_fixed,
+      discount_percent
     })
     // commit(UPDATE_ORDER_TOTAL)
+
+  },
+  updateQtyItem: function ({
+    commit,
+    state,
+    dispatch
+  }, {
+    index,
+    type = 'increate',
+    qty
+  }) {
+    let newQty = 0;
+    let item = state.order.items[index]
+    let oldQty = item.qty
+    if (qty && qty > 0) {
+      newQty = qty
+    } else if (type == 'decreate') {
+      newQty = oldQty > 1 ? --oldQty : oldQty;
+    } else {
+      newQty = ++oldQty
+    }
+    commit(UPDATE_QTY_ITEM, {
+      index: index,
+      qty: newQty
+    })
+    dispatch('discount', {
+      index: index,
+      discountType: 'percent',
+      discount: item.discount_percent
+    })
 
   }
 }
