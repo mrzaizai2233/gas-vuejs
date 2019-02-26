@@ -20,7 +20,7 @@ export default   {
     })
   },
   changeStatusProduct:function({commit},payload){
-    axios.post(`${API_BASE}/product/change_status`,{
+    axios.post(`${API_BASE}/product/change-status`,{
       _id:payload
     }).then(respone=>{
       commit(CHANGE_STATUS_PRODUCT,respone.data)

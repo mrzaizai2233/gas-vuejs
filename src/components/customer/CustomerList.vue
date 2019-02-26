@@ -16,7 +16,7 @@
         <td>{{ props.item.phone }}</td>
         <td>{{ props.item.address }}</td>
         <td>
-          <v-btn fab dark small color="info" @click="thisSelectOrder(props.item)">
+          <v-btn fab dark small color="info" @click="thisSelectCustomer(props.item)">
             <v-icon dark>border_color</v-icon>
           </v-btn>
           <v-btn fab dark small color="pink" @click="deleteOrder(props.item._id)">
@@ -64,8 +64,8 @@ export default {
   },
   methods: {
     ...mapActions("customer", ["getAllCustomer"]),
-    thisSelectOrder(customer) {
-      this.selectOrder(customer);
+    thisSelectCustomer(customer) {
+      this.selectCustomer(customer);
       this.$router.push({ name: "customer" });
     }
   },

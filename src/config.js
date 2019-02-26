@@ -1,1 +1,1 @@
-export const API_BASE = 'http://localhost:8042/api'
+export const API_BASE = '/api/web/index.php?r=V1'

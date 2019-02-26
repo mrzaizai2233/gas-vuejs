@@ -19,14 +19,16 @@ export default {
     commit
   }) {
     commit(ALL_CUSTOMERS)
-    axios.get(`${API_BASE}/customers`).then(response => {
+    axios.get(`${API_BASE}/customer`, {
+      crossdomain: true
+    }).then(response => {
       commit(ALL_CUSTOMERS_SUCCESS, response.data)
     })
   },
   changeStatusCustomer: function ({
     commit
   }, payload) {
-    axios.post(`${API_BASE}/customer/change_status`, {
+    axios.post(`${API_BASE}/customer/change-status`, {
       _id: payload
     }).then(respone => {
       commit(CHANGE_STATUS_CUSTOMER, respone.data)

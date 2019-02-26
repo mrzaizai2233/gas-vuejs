@@ -5,12 +5,19 @@
 const path = require('path')
 devtool: 'source-map',
   module.exports = {
+
     dev: {
 
       // Paths
       assetsSubDirectory: 'static',
       assetsPublicPath: '/',
-      proxyTable: {},
+      proxyTable: {
+        '/api': {
+          target: "https://gas-management.000webhostapp.com",
+          secure: false,
+          changeOrigin: true,
+        }
+      },
 
       // Various Dev Server settings
       host: 'localhost', // can be overwritten by process.env.HOST
