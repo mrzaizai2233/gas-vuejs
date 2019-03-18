@@ -14,7 +14,7 @@
       v-show="!isSelect"
       style="margin-bottom:0"
     >
-      <li v-for="item in filtered" :key="item._id" @click="selectItem(item)">
+      <li v-for="item in filtered" :key="item.id" @click="selectItem(item)">
         <span>
           <strong>{{ item[showKey] }}</strong>
           <br>

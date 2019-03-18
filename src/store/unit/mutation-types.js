@@ -1,0 +1,12 @@
+export const ALL_UNITS = 'ALL_UNITS';
+export const ALL_UNITS_SUCCESS = 'ALL_UNITS_SUCCESS';
+export const CHANGE_STATUS_UNIT = 'CHANGE_STATUS_UNIT';
+export const SELECT_UNIT = 'SELECT_UNIT';
+export const REMOVE_UNIT = 'REMOVE_UNIT';
+export const ADD_UNIT = 'ADD_UNIT';
+export const ADD_UNIT_SUCCESS = 'ADD_UNIT_SUCCESS';
+
+export const UPDATE_UNIT = 'UPDATE_UNIT';
+export const UPDATE_UNIT_SUCCESS = 'UPDATE_UNIT_SUCCESS';
+
+export const DELETE_UNIT_SUCCESS = 'DELETE_UNIT_SUCCESS';

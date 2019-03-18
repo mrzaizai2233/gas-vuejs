@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import category from './category'
 import product from './product'
-import order from './order'
+import quote from './quote'
 import customer from './customer'
+import unit from './unit'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -31,7 +32,8 @@ export default new Vuex.Store({
   modules: {
     category,
     product,
-    order,
-    customer
+    quote,
+    customer,
+    unit
   }
 })

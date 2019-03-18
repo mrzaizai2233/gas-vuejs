@@ -4,8 +4,8 @@ import HelloWorld from '@/components/HelloWorld'
 import Category from '@/pages/Category'
 import Product from '@/pages/Product'
 import Customer from '@/pages/Customer'
-import Order from '@/pages/Order'
-import OrderView from '@/pages/OrderView'
+import Quote from '@/pages/Quote'
+import QuoteView from '@/pages/QuoteView'
 
 Vue.use(Router)
 
@@ -13,13 +13,13 @@ export default new Router({
   mode: 'history',
   routes: [{
       path: '/',
-      name: 'Order',
-      component: Order
+      name: 'Quote',
+      component: Quote
     },
     {
-      path: '/orders',
-      name: 'orders',
-      component: OrderView
+      path: '/quotes',
+      name: 'quotes',
+      component: QuoteView
     },
     {
       path: '/categorys',

@@ -25,33 +25,33 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 export default {
-  name: "OrderFooter",
+  name: "QuoteFooter",
   data() {
     return {
-      userSelected: {}
+      customerSelected: {}
     };
   },
   methods: {
-    ...mapActions("order", [
+    ...mapActions("quote", [
       "changeItem",
       "removeItem",
-      "addOrder",
-      "updateOrder"
+      "addQuote",
+      "updateQuote"
     ]),
-    ...mapActions("user", ["getAllUser"]),
+    ...mapActions("customer", ["getAllCustomer"]),
     submit: function() {
       if (this.isCreate) {
-        this.addOrder(this.order);
+        this.addQuote(this.quote);
       } else {
-        this.updateOrder(this.order);
+        this.updateQuote(this.quote);
       }
     }
   },
   computed: {
-    ...mapGetters("order", ["items", "order", "total"]),
+    ...mapGetters("quote", ["items", "quote", "total"]),
     ...mapGetters("product", ["products"]),
-    ...mapGetters("user", ["users"]),
-    ...mapState("order", ["isCreate"]),
+    ...mapGetters("customer", ["customers"]),
+    ...mapState("quote", ["isCreate"]),
     hasItems: function() {
       if (this.items.length > 0) return 1;
       else return 0;
@@ -92,8 +92,8 @@ export default {
 }
 .flat-btn {
   width: 100%;
-  border-radius: 0;
-  border: none;
+  bquote-radius: 0;
+  bquote: none;
   padding: 10px;
   outline: none;
 }

@@ -50,7 +50,7 @@
           >
             <i class="fa fa-caret-left"></i>
           </button>
-          <input type="text" class="order-qty" v-model="item.qty" name="qty">
+          <input type="text" class="quote-qty" v-model="item.qty" name="qty">
           <button class="square-btn plus-btn" @click="updateQtyItem({index:index})">
             <i class="fa fa-caret-right"></i>
           </button>
@@ -80,7 +80,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "OrderItem",
+  name: "QuoteItem",
   data() {
     return {
       isEditDiscount: false,
@@ -99,18 +99,18 @@ export default {
     }
   },
   methods: {
-    ...mapActions("order", ["updateQtyItem", "removeItem"]),
+    ...mapActions("quote", ["updateQtyItem", "removeItem"]),
     ...mapActions({
-      discountAction: "order/discount"
+      discountAction: "quote/discount"
     }),
-    ...mapActions("user", ["getAllUser"]),
+    ...mapActions("customer", ["getAllCustomer"]),
     ...mapActions("product", ["getAllProduct"]),
     updateItemQty: function($type = "increate") {
       this.item.qty++;
-      console.log(this.order.items);
+      console.log(this.quote.items);
     },
     submit: function() {
-      console.log(this.order);
+      console.log(this.quote);
     },
     focusDiscount: function() {
       this.isEditDiscount = true;
@@ -162,15 +162,15 @@ export default {
       let product = this.products.find(product => product._id === product_id);
       return product ? product.name : "";
     },
-    getUser: function(item) {
-      this.userSelected = item;
-      this.order.user = item._id;
+    getCustomer: function(item) {
+      this.customerSelected = item;
+      this.quote.customer = item._id;
     }
   },
   computed: {
-    ...mapGetters("order", ["items", "order", "total"]),
+    ...mapGetters("quote", ["items", "quote", "total"]),
     ...mapGetters("product", ["products"]),
-    ...mapGetters("user", ["users"]),
+    ...mapGetters("customer", ["customers"]),
     hasItems: function() {
       if (this.items.length > 0) return 1;
       else return 0;
@@ -190,7 +190,7 @@ export default {
       this.discountAction({
         discountType: this.discountType,
         discount: this.discount,
-        index: this.item.product
+        product: this.item.product
       });
     }
   },
@@ -266,7 +266,7 @@ export default {
   display: flex;
 }
 
-.cart-item .body-item .body-item_item .actions .order-qty {
+.cart-item .body-item .body-item_item .actions .quote-qty {
   width: 30px;
   border: none;
   text-align: center;
@@ -274,8 +274,8 @@ export default {
 
 .cart-item .body-item .body-item_item .actions .square-btn {
   background: none;
-  border: 1px solid;
-  border-radius: 20px;
+  bquote: 1px solid;
+  bquote-radius: 20px;
   outline: none;
   background-color: #ff9800;
   color: white;

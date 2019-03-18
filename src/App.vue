@@ -90,7 +90,7 @@ export default {
     dialog: false,
     drawer: null,
     items: [
-      { icon: "contacts", text: "Đơn Hàng", path: "orders" },
+      { icon: "contacts", text: "Đơn Hàng", path: "quotes" },
       { icon: "content_copy", text: "Sản phẩm", path: "products" },
       { icon: "widgets", text: "Danh mục", path: "categorys" },
       { icon: "history", text: "Khách hàng", path: "customers" },

@@ -13,63 +13,63 @@
         <tbody>
           <tr>
             <td>
-              <input type="hidden" v-model="order.user">
+              <input type="hidden" v-model="quote.customer">
               <Typeahead
                 :filter-key="'name'"
                 :placeholder="'Nhập tên'"
-                :source="users"
-                :defaultItem="!isCreate?user:null"
+                :source="customers"
+                :defaultItem="!isCreate?customer:null"
                 :showKey="'name'"
                 :start-at="1"
-                @select="selectUser"
+                @select="selectCustomer"
                 ref="select2"
               ></Typeahead>
             </td>
-            <td>{{user.code}}</td>
-            <td>{{user.phone}}</td>
-            <td>{{user.adress}}</td>
+            <td>{{customer.code}}</td>
+            <td>{{customer.phone}}</td>
+            <td>{{customer.adress}}</td>
           </tr>
         </tbody>
       </table>
     </v-flex>
     <v-flex v-if="hasItems" md12 sm12 xs12 elevation-1>
-      <OrderItem v-for="(item,index) in items" :key="index" :index="index" :item="item"></OrderItem>
+      <QuoteItem v-for="(item,index) in items" :key="index" :index="index" :item="item"></QuoteItem>
     </v-flex>
-    <v-flex md12 sm12 col-xs-12 elevation-1 order-items>
-      <OrderInfo></OrderInfo>
+    <v-flex md12 sm12 col-xs-12 elevation-1 quote-items>
+      <QuoteInfo></QuoteInfo>
     </v-flex>
     <v-flex md12 sm12 col-xs-12 elevation-1 wrap-col-footer>
-      <OrderFooter></OrderFooter>
+      <QuoteFooter></QuoteFooter>
     </v-flex>
   </v-flex>
 </template>
 <script>
 import Typeahead from "../Typeahead";
-import OrderItem from "./orderFrom/OrderItem";
-import OrderFooter from "./orderFrom/OrderFooter";
-import OrderInfo from "./orderFrom/OrderInfo";
+import QuoteItem from "./quoteFrom/QuoteItem";
+import QuoteFooter from "./quoteFrom/QuoteFooter";
+import QuoteInfo from "./quoteFrom/QuoteInfo";
 import { mapGetters, mapActions, mapState } from "vuex";
 import { EventBus } from "../../helper/event";
 export default {
-  name: "OrderFrom",
+  name: "QuoteFrom",
   data() {
     return {
-      userSelected: {}
+      customerSelected: {}
     };
   },
   methods: {
-    ...mapActions("order", ["changeItem", "removeItem", "selectUser"]),
-    ...mapActions("user", ["getAllUser"]),
-    getUser: function(item) {
-      this.userSelected = item;
-      this.order.user = item._id;
+    ...mapActions("quote", ["changeItem", "removeItem", "selectCustomer"]),
+    ...mapActions("customer", ["getAllCustomer"]),
+    getCustomer: function(item) {
+      this.customerSelected = item;
+      this.quote.customer = item._id;
     }
   },
   computed: {
-    ...mapGetters("order", ["items", "order", "total"]),
+    ...mapGetters("quote", ["items", "quote", "total"]),
     ...mapGetters("product", ["products"]),
-    ...mapGetters("user", ["users"]),
-    ...mapState("order", ["user", "isCreate"]),
+    ...mapGetters("customer", ["customers"]),
+    ...mapState("quote", ["customer", "isCreate"]),
     hasItems: function() {
       console.log(this.items);
       if (this.items && this.items.length > 0) return 1;
@@ -79,9 +79,9 @@ export default {
   watch: {},
   components: {
     Typeahead,
-    OrderItem,
-    OrderFooter,
-    OrderInfo
+    QuoteItem,
+    QuoteFooter,
+    QuoteInfo
   },
   filters: {
     toUSD(value) {
@@ -89,10 +89,10 @@ export default {
     }
   },
   created() {
-    if (this.users.length <= 0) {
-      this.getAllUser();
+    if (this.customers.length <= 0) {
+      this.getAllCustomer();
     }
-    EventBus.$on("order-add-success", () => {
+    EventBus.$on("quote-add-success", () => {
       this.$refs.select2.query = "";
     });
   }
@@ -104,7 +104,7 @@ export default {
   display: flex;
 }
 @media only screen and (max-width: 959px) {
-  .order-items {
+  .quote-items {
     margin-bottom: 30px;
   }
 }

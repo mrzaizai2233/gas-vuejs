@@ -13,8 +13,8 @@ devtool: 'source-map',
       assetsPublicPath: '/',
       proxyTable: {
         '/api': {
-          target: "https://gas-management.000webhostapp.com",
-          secure: false,
+          target: "http://gas.local",
+          // secure: false,
           changeOrigin: true,
         }
       },

@@ -1,16 +1,19 @@
 <template>
-    <v-flex md3 sm12>
-        <v-data-table :headers="headers" :items="products" hide-actions class="elevation-1">
-            <template slot="items" slot-scope="props">
-                <td>{{ props.item.name }}</td>
-                <td>
-                <button :class="{'btn m-btn--pill btn-outline-primary m-btn m-btn--custom m-btn--outline-2x custom-btn':true}" @click="addOrderItem(props.item)">
-                      <i data-v-0ad82491="" class="fa fa-plus "></i>
-                </button>
-                </td>
-            </template>
-        </v-data-table>
-        </v-flex>
+  <v-flex md3 sm12>
+    <v-data-table :headers="headers" :items="products" hide-actions class="elevation-1">
+      <template slot="items" slot-scope="props">
+        <td>{{ props.item.name }}</td>
+        <td>
+          <button
+            :class="{'btn m-btn--pill btn-outline-primary m-btn m-btn--custom m-btn--outline-2x custom-btn':true}"
+            @click="addQuoteItem(props.item)"
+          >
+            <i data-v-0ad82491 class="fa fa-plus"></i>
+          </button>
+        </td>
+      </template>
+    </v-data-table>
+  </v-flex>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
@@ -35,13 +38,13 @@ export default {
   computed: {
     ...mapGetters("product", ["products"]),
 
-    ...mapGetters("order", ["order"])
+    ...mapGetters("quote", ["quote"])
   },
 
   methods: {
     ...mapActions("product", ["getAllProduct"]),
 
-    ...mapActions("order", ["addOrderItem"]),
+    ...mapActions("quote", ["addQuoteItem"]),
 
     addItem(product) {
       let item = {
@@ -60,7 +63,7 @@ export default {
 
       console.log(item);
 
-      this.order.items.push(item);
+      this.quote.items.push(item);
     }
   },
 
@@ -73,9 +76,9 @@ export default {
 </script>
 <style scoped>
 .custom-btn {
-  border-color: #ff9800;
+  bquote-color: #ff9800;
   color: white;
-  background-color:#ff9800;
+  background-color: #ff9800;
   padding: 8px 10px;
 }
 </style>

@@ -1,19 +1,19 @@
 <template>
-  <div class="order-info">
-    <div class="order-info_status">
+  <div class="quote-info">
+    <div class="quote-info_status">
       <div class="status-item status-text">
         <span>Thanh toán</span>
       </div>
       <div class="status-item status-control">
-        <v-switch v-model="order.status"></v-switch>
+        <v-switch v-model="quote.status"></v-switch>
       </div>
     </div>
-    <div class="order-info_status">
+    <div class="quote-info_status">
       <div class="status-item status-text">
         <span>Nợ vỏ</span>
       </div>
       <div class="status-item status-control">
-        <v-switch v-model="order.status"></v-switch>
+        <v-switch v-model="quote.status"></v-switch>
       </div>
     </div>
   </div>
@@ -22,23 +22,23 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "OrderInfo",
+  name: "QuoteInfo",
   data() {
     return {
-      userSelected: {}
+      customerSelected: {}
     };
   },
   methods: {
-    ...mapActions("order", ["changeItem", "removeItem"]),
-    ...mapActions("user", ["getAllUser"]),
+    ...mapActions("quote", ["changeItem", "removeItem"]),
+    ...mapActions("customer", ["getAllCustomer"]),
     submit: function() {
-      console.log(this.order);
+      console.log(this.quote);
     }
   },
   computed: {
-    ...mapGetters("order", ["items", "order", "total"]),
+    ...mapGetters("quote", ["items", "quote", "total"]),
     ...mapGetters("product", ["products"]),
-    ...mapGetters("user", ["users"])
+    ...mapGetters("customer", ["customers"])
   },
   watch: {},
   filters: {},
@@ -46,14 +46,14 @@ export default {
 };
 </script>
 <style scoped>
-.order-info {
+.quote-info {
   display: flex;
 }
-.order-info .order-info_status {
+.quote-info .quote-info_status {
   width: 100%;
   display: flex;
 }
-.order-info .order-info_status .status-item {
+.quote-info .quote-info_status .status-item {
   flex: 1;
   justify-content: center;
   align-items: center;
